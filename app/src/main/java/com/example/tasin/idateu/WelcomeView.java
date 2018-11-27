@@ -1,13 +1,13 @@
-package com.example.tasin.dating_app_v01;
+package com.example.tasin.idateu;
 
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 
-public class HomePageActivity extends AppCompatActivity {
+public class WelcomeView extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_home_page);
+        setContentView(R.layout.activity_welcome_view);
     }
 }

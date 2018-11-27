@@ -1,4 +1,4 @@
-package com.example.tasin.dating_app_v01;
+package com.example.tasin.idateu;
 
 import org.junit.Test;
 

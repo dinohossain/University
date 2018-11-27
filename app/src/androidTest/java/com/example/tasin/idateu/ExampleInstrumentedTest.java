@@ -1,4 +1,4 @@
-package com.example.tasin.dating_app_v01;
+package com.example.tasin.idateu;
 
 import android.content.Context;
 import android.support.test.InstrumentationRegistry;
@@ -21,6 +21,6 @@ public class ExampleInstrumentedTest {
         // Context of the app under test.
         Context appContext = InstrumentationRegistry.getTargetContext();
 
-        assertEquals("com.example.tasin.dating_app_v01", appContext.getPackageName());
+        assertEquals("com.example.tasin.idateu", appContext.getPackageName());
     }
 }
