@@ -9,7 +9,7 @@
     tools:context=".WelcomeView">
 
     <ImageView
-        android:id="@+id/imageView2"
+        android:id="@+id/logoInApp"
         android:layout_width="150dp"
         android:layout_height="150dp"
         android:layout_alignParentTop="true"
@@ -24,10 +24,10 @@
         android:layout_height="wrap_content"
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="164dp"
+        android:layout_marginTop="164sp"
         android:fontFamily="@font/arial"
-        android:text="iDATEu"
-        android:textSize="50dp"
+        android:text="@string/app_name"
+        android:textSize="50sp"
         android:textColor="@color/white"/>
 
     <TextView
@@ -36,10 +36,10 @@
         android:layout_height="wrap_content"
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="232dp"
+        android:layout_marginTop="228sp"
         android:text="@string/slogan"
-        android:textSize="21dp"
-        android:textColor="@color/white"/>
+        android:textColor="@color/white"
+        android:textSize="21sp" />
 
     <EditText
         android:id="@+id/usernameInput"
@@ -50,10 +50,12 @@
         android:layout_marginTop="292dp"
         android:background="@drawable/rounded_text_edit"
         android:ems="10"
-        android:paddingLeft="10dp"
+        android:paddingLeft="20dp"
         android:hint="@string/username_hint"
-        android:textColorHint="@color/transparent_black"
-        android:textSize="28dp" />
+        android:textColorHint="@color/white"
+        android:textSize="28sp"
+        android:inputType="text"
+        android:textCursorDrawable="@drawable/color_cursor" />
 
     <EditText
         android:id="@+id/passwordInput"
@@ -64,11 +66,12 @@
         android:layout_marginTop="342dp"
         android:background="@drawable/rounded_text_edit"
         android:ems="10"
-        android:paddingLeft="10dp"
+        android:paddingLeft="20dp"
         android:hint="@string/password_hint"
-        android:textColorHint="@color/transparent_black"
-        android:textSize="28dp" />
-
+        android:textColorHint="@color/white"
+        android:textSize="28sp"
+        android:inputType="textPassword"
+        android:textCursorDrawable="@drawable/color_cursor"/>
 
     <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:tools="http://schemas.android.com/tools"
@@ -85,8 +88,9 @@
         android:text="LOGIN"
         android:ems="5"
         android:textColor="@color/white"
+        android:backgroundTint="@color/pink"
         android:layout_weight="1"
-        android:layout_marginLeft="22dp"/>
+        android:layout_marginLeft="10dp"/>
 
     <Button
         android:id="@+id/register_button"
@@ -95,8 +99,20 @@
         android:text="REGISTER"
         android:ems="5"
         android:textColor="@color/white"
+        android:backgroundTint="@color/purple"
         android:layout_weight="1"
-        android:layout_marginRight="22dp"/>
+        android:layout_marginRight="10dp"/>
     </LinearLayout>
+
+    <TextView
+        android:id="@+id/forgot_password_link"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="439dp"
+        android:text="Forgot my password"
+        android:textColor="@color/white"
+        android:textSize="19sp" />
 
 </RelativeLayout>
