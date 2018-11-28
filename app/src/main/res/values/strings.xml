@@ -1,3 +1,8 @@
 <resources>
     <string name="app_name">iDATEu</string>
+    <string name="slogan">"\"Let's get shapey\""</string>
+
+    <string name="username_hint"><font size="22">Username</font></string>
+    <string name="password_hint"><font size="22">Password</font></string>
+
 </resources>
