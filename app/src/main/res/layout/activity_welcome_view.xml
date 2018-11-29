@@ -52,9 +52,10 @@
         android:ems="10"
         android:paddingLeft="20dp"
         android:hint="@string/username_hint"
-        android:textColorHint="@color/white"
+        android:textColorHint="@color/transparent_grey"
         android:textSize="28sp"
         android:inputType="text"
+        android:textColor="@color/white"
         android:textCursorDrawable="@drawable/color_cursor" />
 
     <EditText
@@ -68,10 +69,13 @@
         android:ems="10"
         android:paddingLeft="20dp"
         android:hint="@string/password_hint"
-        android:textColorHint="@color/white"
+        android:textColorHint="@color/transparent_grey"
         android:textSize="28sp"
+        android:textColor="@color/white"
         android:inputType="textPassword"
         android:textCursorDrawable="@drawable/color_cursor"/>
+
+    
 
     <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:tools="http://schemas.android.com/tools"
@@ -109,6 +113,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentTop="true"
+        android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="439dp"
         android:text="Forgot my password"
