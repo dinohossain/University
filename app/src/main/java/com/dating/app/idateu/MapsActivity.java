@@ -1,7 +1,9 @@
-package com.example.tasin.idateu;
+package com.dating.app.idateu;
 
 import android.support.v4.app.FragmentActivity;
 import android.os.Bundle;
+
+import com.example.tasin.idateu.R;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;

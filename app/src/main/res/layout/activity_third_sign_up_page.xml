@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/pink"
+    android:orientation="vertical"
+    android:gravity="center_horizontal"
+    tools:context="com.dating.app.idateu.ThirdSignUpPage">
+
+    <EditText
+        android:id="@+id/usernameInput"
+        android:layout_width="290dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="150dp"
+        android:background="@color/white"
+        android:hint="Username"/>
+
+    <EditText
+        android:id="@+id/emailInput"
+        android:layout_width="290dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="15dp"
+        android:background="@color/white"
+        android:hint="Email"/>
+
+    <EditText
+        android:id="@+id/passwordInput"
+        android:layout_width="290dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="15dp"
+        android:background="@color/white"
+        android:hint="Password"/>
+
+    <TextView
+        android:layout_width="290dp"
+        android:layout_height="wrap_content"
+        android:textColor="@color/white"
+        android:layout_marginTop="5dp"
+        android:text="@string/password_instruction"/>
+
+    <EditText
+        android:id="@+id/passwordConfirmInput"
+        android:layout_width="290dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="15dp"
+        android:background="@color/white"
+        android:hint="Confirm Password"/>
+
+    <Spinner
+        android:id="@+id/gender_selection"
+        android:layout_width="290dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="15dp"
+        android:entries="@array/gender_arrays">
+    </Spinner>
+
+</LinearLayout>

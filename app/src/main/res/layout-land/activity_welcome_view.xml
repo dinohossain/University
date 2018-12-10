@@ -10,7 +10,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/transparent_black"
-    tools:context=".WelcomeView">
+    tools:context="com.dating.app.idateu.WelcomeView">
 
 
     <ImageView
@@ -90,7 +90,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="390dp"
         android:background="@color/transparent_black"
-        tools:context=".WelcomeView">
+        tools:context="com.dating.app.idateu.WelcomeView">
 
     <Button
         android:id="@+id/login_button"
