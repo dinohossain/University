@@ -4,7 +4,6 @@
 
     <string name="username_hint"><font size="22">Username</font></string>
     <string name="password_hint"><font size="22">Password</font></string>
-    <string name="title_activity_map_design">Map</string>
 
     <string name="password_instruction">At least 6 characters long,
         include a capital character and a number.</string>
