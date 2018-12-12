@@ -48,7 +48,7 @@
     <EditText
         android:id="@+id/usernameInput"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="40dp"
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="292dp"
@@ -60,13 +60,13 @@
         android:layout_marginRight="5dp"
         android:textSize="28sp"
         android:inputType="text"
-        android:textColor="@color/white"
+        android:textColor="@color/transparent_black"
         android:textCursorDrawable="@drawable/color_cursor" />
 
     <EditText
         android:id="@+id/passwordInput"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="40dp"
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="342dp"
@@ -77,42 +77,10 @@
         android:hint="@string/password_hint"
         android:textColorHint="@color/transparent_grey"
         android:textSize="28sp"
-        android:textColor="@color/white"
+        android:textColor="@color/transparent_black"
         android:inputType="textPassword"
         android:textCursorDrawable="@drawable/color_cursor"/>
 
-
-
-    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-        xmlns:tools="http://schemas.android.com/tools"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="390dp"
-        android:background="@color/transparent_black"
-        tools:context="com.dating.app.idateu.WelcomeView">
-
-    <Button
-        android:id="@+id/login_button"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="LOGIN"
-        android:ems="5"
-        android:textColor="@color/white"
-        android:backgroundTint="@color/pink"
-        android:layout_weight="1"
-        android:layout_marginLeft="10dp"/>
-
-    <Button
-        android:id="@+id/register_button"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="REGISTER"
-        android:ems="5"
-        android:textColor="@color/white"
-        android:backgroundTint="@color/purple"
-        android:layout_weight="1"
-        android:layout_marginRight="10dp"/>
-    </LinearLayout>
 
     <TextView
         android:id="@+id/forgot_password_link"
@@ -121,11 +89,42 @@
         android:layout_alignParentTop="true"
         android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="439dp"
+        android:layout_marginTop="350dp"
+        android:layout_marginBottom="48dp"
+        android:paddingBottom="75dp"
         android:text="Forgot my password"
         android:textColor="@color/white"
-        android:textSize="19sp"
-        android:paddingBottom="75dp"/>
+        android:textSize="19sp" />
 
-</RelativeLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:weightSum="2"
+        android:layout_alignParentBottom="true">
+
+        <Button
+            android:id="@+id/login_button"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:text="LOGIN"
+            android:textColor="@color/white"
+            android:background="@drawable/full_length_button"
+            android:backgroundTint="@color/pink"
+            android:layout_weight="1"
+            android:layout_alignParentLeft="true"
+            />
+
+        <Button
+            android:id="@+id/register_button"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:text="REGISTER"
+            android:layout_weight="1"
+            android:textColor="@color/white"
+            android:background="@drawable/full_length_button"
+            android:backgroundTint="@color/purple"
+            />
+    </LinearLayout>
+
+    </RelativeLayout>
     </ScrollView>
