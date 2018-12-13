@@ -3,13 +3,10 @@ package com.dating.app.idateu;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.view.Menu;
 import android.view.View;
 import android.widget.Button;
 
-import com.example.tasin.idateu.R;
-
-public class MainActivity extends AppCompatActivity
+public class SignUpLogIn extends AppCompatActivity
     {
 
     Button register_btn;
@@ -25,7 +22,7 @@ public class MainActivity extends AppCompatActivity
             @Override
             public void onClick(View view)
                 {
-                startActivity(new Intent(MainActivity.this, ThirdSignUpPage.class));
+                startActivity(new Intent(SignUpLogIn.this, SecondSignUpPage.class));
                 }
         });
         }
