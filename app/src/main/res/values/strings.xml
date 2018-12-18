@@ -7,6 +7,7 @@
 
     <string name="password_instruction">At least 6 characters long,
         include a capital character and a number.</string>
+
     <string-array name="gender_arrays">
         <item>Male</item>
         <item>Female</item>

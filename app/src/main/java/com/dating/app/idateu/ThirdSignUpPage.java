@@ -2,10 +2,12 @@ package com.dating.app.idateu;
 
 import android.app.DatePickerDialog;
 import android.content.Context;
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
+import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.Spinner;
@@ -17,6 +19,8 @@ public class ThirdSignUpPage extends AppCompatActivity {
 
     EditText date;
     DatePickerDialog datePickerDialog;
+
+    Button nextB;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -50,6 +54,15 @@ public class ThirdSignUpPage extends AppCompatActivity {
             }
         });
 
-    }
+        nextB = (Button)findViewById(R.id.next_button);
+        nextB.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view)
+            {
+                startActivity(new Intent(ThirdSignUpPage.this, HomePage.class));
+            }
+        });
+
+        }
     }
 
