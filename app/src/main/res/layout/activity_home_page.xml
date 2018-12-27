@@ -5,7 +5,8 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/transparent_black"
-    tools:context=".HomePage">
+    tools:context=".Homepage.HomePage">
+
 
     <ImageView
         android:id="@+id/match_pic"

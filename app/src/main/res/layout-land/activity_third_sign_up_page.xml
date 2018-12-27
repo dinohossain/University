@@ -11,7 +11,7 @@
         android:background="@color/pink"
         android:gravity="center_horizontal"
         android:orientation="vertical"
-        tools:context="com.dating.app.idateu.ThirdSignUpPage">
+        tools:context="com.dating.app.idateu.SignUp_LogIn.ThirdSignUpPage">
 
         <EditText
             android:id="@+id/usernameInput"

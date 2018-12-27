@@ -1,4 +1,4 @@
-package com.dating.app.idateu;
+package com.dating.app.idateu.Maps;
 
 import android.support.v4.app.FragmentActivity;
 import android.os.Bundle;

@@ -1,18 +1,17 @@
-package com.dating.app.idateu;
+package com.dating.app.idateu.SignUp_LogIn;
 
 import android.app.DatePickerDialog;
-import android.content.Context;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
-import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
-import android.widget.Spinner;
+
+import com.dating.app.idateu.Homepage.HomePage;
 import com.dating.app.idateu.R;
-import java.util.ArrayList;
+
 import java.util.Calendar;
 
 public class ThirdSignUpPage extends AppCompatActivity {

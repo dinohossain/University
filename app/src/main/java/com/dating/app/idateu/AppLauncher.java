@@ -4,6 +4,8 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 
+import com.dating.app.idateu.SignUp_LogIn.SignUpLogIn;
+
 /*
 * The purpose of this class is to check
 * if the app has already stored in the log in details.
