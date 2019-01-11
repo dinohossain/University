@@ -29,10 +29,12 @@ public class HomePage extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home_page);
         current_match=(ImageView)findViewById(R.id.match_pic);
+        current_match.setImageResource(R.drawable.dummy_pic);
         like_button=(Button) findViewById(R.id.like_btn);
         like_button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                current_match.setImageResource(R.drawable.water_girl);
             }
             });
         }

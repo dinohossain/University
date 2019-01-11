@@ -101,13 +101,14 @@
             android:layout_height="wrap_content">
 
             <Button
-                android:id="@+id/third_page_next_button"
+                android:id="@+id/next_button"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_alignParentBottom="true"
                 android:text="NEXT"
                 android:background="@drawable/full_length_button"
-                android:backgroundTint="@color/purple"/>
+                android:backgroundTint="@color/purple"
+                android:textColor="@color/white"/>
 
         </RelativeLayout>
 

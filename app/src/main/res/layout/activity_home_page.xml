@@ -7,22 +7,47 @@
     android:background="@color/transparent_black"
     tools:context=".Homepage.HomePage">
 
+    <ImageView
+        android:id="@+id/middle_logo"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:layout_alignParentTop="true"
+        android:layout_marginTop="20dp"
+        android:src="@drawable/logo2"
+        android:layout_centerHorizontal="true"/>
 
     <ImageView
         android:id="@+id/match_pic"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_below="@id/middle_logo"
         android:layout_alignParentStart="true"
-        android:layout_alignParentTop="true"
         android:layout_alignParentEnd="true"
         android:layout_alignParentBottom="true"
         android:layout_marginStart="20dp"
-        android:layout_marginTop="80dp"
+        android:layout_marginTop="20dp"
         android:layout_marginEnd="20dp"
         android:layout_marginBottom="101dp"
-        android:scaleType="fitXY"
-        />
+        android:scaleType="fitXY" />
 
+    <Button
+        android:id="@+id/userProfile_btn"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="20dp"
+        android:background="@drawable/user_profile_ripple_effect" />
+
+    <Button
+        android:id="@+id/message_btn"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:layout_alignParentEnd="true"
+        android:layout_marginTop="20dp"
+        android:layout_marginEnd="20dp"
+        android:background="@drawable/message_ripple_effect"/>
 
     <Button
         android:id="@+id/like_btn"
@@ -39,5 +64,6 @@
         android:layout_alignEnd="@+id/match_pic"
         android:layout_alignParentBottom="true"
         android:background="@drawable/dislike_ripple_effect" />
+
 
 </RelativeLayout>

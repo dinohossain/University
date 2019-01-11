@@ -26,7 +26,8 @@
         android:layout_alignStart="@id/warning_txt"
         android:layout_marginStart="-52dp"
         android:layout_marginTop="47dp"
-        android:layout_marginRight="2dp" />
+        android:layout_marginRight="2dp"
+        android:buttonTint="@color/white"/>
 
     <TextView
         android:id="@+id/tap_here_txt"

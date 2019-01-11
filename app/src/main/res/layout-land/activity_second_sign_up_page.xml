@@ -35,7 +35,8 @@
         android:layout_below="@+id/tap_here_txt"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="-34dp"
-        android:text="Tap here if you are over 18" />
+        android:text="Tap here if you are over 18"
+        android:buttonTint="@color/white"/>
 
     <Button
         android:id="@+id/Continue_button"
