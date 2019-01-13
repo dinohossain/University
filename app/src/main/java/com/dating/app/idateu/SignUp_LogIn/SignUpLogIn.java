@@ -27,6 +27,7 @@ public class SignUpLogIn extends AppCompatActivity
             public void onClick(View view)
                 {
                 startActivity(new Intent(SignUpLogIn.this, SecondSignUpPage.class));
+                overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
                 }
         });
 
@@ -36,6 +37,7 @@ public class SignUpLogIn extends AppCompatActivity
                 public void onClick(View view)
                 {
                 startActivity(new Intent(SignUpLogIn.this, HomePage.class));
+
                 }
 
         });
