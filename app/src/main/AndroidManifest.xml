@@ -37,7 +37,9 @@
 
         <activity android:name=".SignUp_LogIn.SecondSignUpPage" />
         <activity android:name=".SignUp_LogIn.ThirdSignUpPage" />
-        <activity android:name=".Homepage.HomePage"></activity>
+        <activity android:name=".Homepage.HomePage"
+            android:configChanges="orientation"
+            android:screenOrientation="portrait"/>
     </application>
 
 </manifest>

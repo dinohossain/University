@@ -26,7 +26,6 @@ public class SecondSignUpPage extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 startActivity(new Intent(SecondSignUpPage.this, ThirdSignUpPage.class));
-                overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
             }
         });
     }

@@ -59,7 +59,6 @@ public class ThirdSignUpPage extends AppCompatActivity {
             public void onClick(View view)
             {
                 startActivity(new Intent(ThirdSignUpPage.this, HomePage.class));
-                overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
             }
         });
 
