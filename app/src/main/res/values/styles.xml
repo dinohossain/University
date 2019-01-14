@@ -8,4 +8,7 @@
         <item name="colorAccent">@color/purple</item>
     </style>
 
+    <style name="CustomActivityAnimation"
+           parent="@android:style/Animation.Activity"
+
 </resources>
