@@ -1,10 +1,12 @@
 package com.dating.app.idateu.Homepage;
 
+import android.app.Dialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.TextView;
 
 import com.dating.app.idateu.R;
 
@@ -16,6 +18,7 @@ public class HomePage extends AppCompatActivity {
     ImageView current_match;
     Button like_button;
     int number_of_clicks = 0;
+    Dialog mDialog;
 
 
     private ArrayList<Integer> matchImages = new ArrayList<Integer>();
@@ -50,7 +53,14 @@ public class HomePage extends AppCompatActivity {
             });
         }
 
-
+    public void ShowPopUp(View v)
+        {
+        ImageView match_pop;
+        TextView name_txt;
+        mDialog.setContentView(R.layout.matched_pop_up);
+        match_pop = findViewById(R.id.matched_pop_up_img);
+        name_txt = findViewById(R.id.matched_pop_txt);
+        }
 
 
     }
