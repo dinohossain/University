@@ -50,9 +50,9 @@ public class HomePage extends AppCompatActivity {
         current_match.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent start_popup = new Intent(HomePage.this, Pop_up.class);
-                start_popup.putExtra("picture_ID", matchImages.get(number_of_clicks));
-                startActivity(start_popup);
+                //Intent start_popup = new Intent(HomePage.this, Pop_up.class);
+                //start_popup.putExtra("picture_ID", matchImages.get(number_of_clicks));
+                //startActivity(start_popup);
             }
         });
 
