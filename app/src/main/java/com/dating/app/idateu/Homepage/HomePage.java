@@ -1,5 +1,6 @@
 package com.dating.app.idateu.Homepage;
 
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -18,7 +19,7 @@ public class HomePage extends AppCompatActivity {
     int number_of_clicks = 0;
 
 
-    private ArrayList<Integer> matchImages = new ArrayList<Integer>();
+    private ArrayList<Integer> matchImages = new ArrayList<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -29,30 +30,33 @@ public class HomePage extends AppCompatActivity {
         matchImages.add(R.drawable.img_002);
         matchImages.add(R.drawable.img_003);
 
-        current_match=(ImageView)findViewById(R.id.match_pic);
+        current_match = (ImageView) findViewById(R.id.match_pic);
         current_match.setImageResource(matchImages.get(0));
-        like_button=(Button) findViewById(R.id.like_btn);
+        like_button = (Button) findViewById(R.id.like_btn);
         like_button.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View view)
-                {
-                if (matchImages.size() != number_of_clicks+1)
-                    {
+            public void onClick(View view) {
+                if (matchImages.size() != number_of_clicks + 1) {
                     number_of_clicks++;
                     current_match.setImageResource(matchImages.get(number_of_clicks));
-                    }
-                else
-                    {
+                } else {
                     number_of_clicks = 0;
                     current_match.setImageResource(matchImages.get(number_of_clicks));
-                    }
                 }
-            });
-        }
+            }
+        });
 
 
-
+        current_match.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent start_popup = new Intent(HomePage.this, Pop_up.class);
+                start_popup.putExtra("picture_ID", matchImages.get(number_of_clicks));
+                startActivity(start_popup);
+            }
+        });
 
     }
+}
 
 
