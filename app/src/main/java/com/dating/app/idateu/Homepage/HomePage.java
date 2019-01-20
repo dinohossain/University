@@ -18,10 +18,9 @@ public class HomePage extends AppCompatActivity {
 
     ImageView current_match;
     Button like_button, dislike_button;
-    int number_of_clicks = 0;
+    int matchPicIndex = 0;
     Dialog mDialog;
 
-    LinearLayout layout;
 
     private ArrayList<Integer> matchImages = new ArrayList<Integer>();
 
@@ -40,21 +39,20 @@ public class HomePage extends AppCompatActivity {
         like_button=(Button) findViewById(R.id.like_btn);
 
         dislike_button = findViewById(R.id.dislike_btn);
-        layout = new LinearLayout(this);
 
         like_button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view)
                 {
-                if (matchImages.size() != number_of_clicks+1)
+                if (matchImages.size() != matchPicIndex +1)
                     {
-                    number_of_clicks++;
-                    current_match.setImageResource(matchImages.get(number_of_clicks));
+                    matchPicIndex++;
+                    current_match.setImageResource(matchImages.get(matchPicIndex));
                     }
                 else
                     {
-                    number_of_clicks = 0;
-                    current_match.setImageResource(matchImages.get(number_of_clicks));
+                    matchPicIndex = 0;
+                    current_match.setImageResource(matchImages.get(matchPicIndex));
                     }
                 }
             });
@@ -62,7 +60,9 @@ public class HomePage extends AppCompatActivity {
         current_match.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                startActivity(new Intent(HomePage.this,Pop_up.class));
+                Intent start_popup = new Intent(HomePage.this, Pop_up.class);
+                start_popup.putExtra("picture_ID", matchImages.get(matchPicIndex));
+                startActivity(start_popup);
             }
         });
 
