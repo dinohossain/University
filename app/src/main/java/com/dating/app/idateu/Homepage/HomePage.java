@@ -1,25 +1,26 @@
 package com.dating.app.idateu.Homepage;
 
-import android.app.Dialog;
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
 
 import com.dating.app.idateu.R;
+import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
 
 public class HomePage extends AppCompatActivity {
 
 
+
     ImageView current_match;
     Button like_button, dislike_button;
     int matchPicIndex = 0;
-    Dialog mDialog;
 
 
     private ArrayList<Integer> matchImages = new ArrayList<Integer>();
@@ -31,10 +32,9 @@ public class HomePage extends AppCompatActivity {
         matchImages.add(R.drawable.img_001);
         matchImages.add(R.drawable.img_002);
         matchImages.add(R.drawable.img_003);
-        mDialog = new Dialog(this);
 
         current_match=(ImageView)findViewById(R.id.match_pic);
-        current_match.setImageResource(matchImages.get(0));
+        ImageView image = new ImageView(this);
 
         like_button=(Button) findViewById(R.id.like_btn);
 
@@ -47,12 +47,12 @@ public class HomePage extends AppCompatActivity {
                 if (matchImages.size() != matchPicIndex +1)
                     {
                     matchPicIndex++;
-                    current_match.setImageResource(matchImages.get(matchPicIndex));
+                    Picasso.get().load(matchImages.get(matchPicIndex)).into(current_match);
                     }
                 else
                     {
                     matchPicIndex = 0;
-                    current_match.setImageResource(matchImages.get(matchPicIndex));
+                    Picasso.get().load(matchImages.get(matchPicIndex)).into(current_match);
                     }
                 }
             });
