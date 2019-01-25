@@ -35,7 +35,7 @@ public class HomePage extends AppCompatActivity {
 
         current_match=(ImageView)findViewById(R.id.match_pic);
         ImageView image = new ImageView(this);
-
+        Picasso.get().load(matchImages.get(0)).into(current_match); //loads initial image
         like_button=(Button) findViewById(R.id.like_btn);
 
         dislike_button = findViewById(R.id.dislike_btn);
