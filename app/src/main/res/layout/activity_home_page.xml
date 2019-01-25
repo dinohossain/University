@@ -9,8 +9,8 @@
 
     <ImageView
         android:id="@+id/middle_logo"
-        android:layout_width="50dp"
-        android:layout_height="50dp"
+        android:layout_width="70dp"
+        android:layout_height="70dp"
         android:layout_alignParentTop="true"
         android:layout_marginTop="20dp"
         android:src="@drawable/logo2"
@@ -33,7 +33,7 @@
     <Button
         android:id="@+id/userProfile_btn"
         android:layout_width="50dp"
-        android:layout_height="50dp"
+        android:layout_height="60dp"
         android:layout_alignParentStart="true"
         android:layout_alignParentTop="true"
         android:layout_marginStart="20dp"
@@ -43,7 +43,7 @@
     <Button
         android:id="@+id/message_btn"
         android:layout_width="50dp"
-        android:layout_height="50dp"
+        android:layout_height="60dp"
         android:layout_alignParentEnd="true"
         android:layout_marginTop="20dp"
         android:layout_marginEnd="20dp"
@@ -51,16 +51,18 @@
 
     <Button
         android:id="@+id/like_btn"
-        android:layout_width="100dp"
-        android:layout_height="100dp"
+        android:layout_width="70dp"
+        android:layout_height="70dp"
         android:layout_alignStart="@+id/match_pic"
+        android:layout_marginBottom="10dp"
         android:layout_alignParentBottom="true"
         android:background="@drawable/like_ripple_effect" />
 
     <Button
         android:id="@+id/dislike_btn"
-        android:layout_width="100dp"
-        android:layout_height="100dp"
+        android:layout_width="70dp"
+        android:layout_height="70dp"
+        android:layout_marginBottom="10dp"
         android:layout_alignEnd="@+id/match_pic"
         android:layout_alignParentBottom="true"
         android:background="@drawable/dislike_ripple_effect" />
