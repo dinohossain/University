@@ -13,7 +13,6 @@ import java.util.ArrayList;
 
 public class HomePage extends AppCompatActivity {
 
-
     int matchPicIndex = 0;
     ImageView current_match;
     Button like_button, dislike_button;
@@ -25,9 +24,9 @@ public class HomePage extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home_page);
+        startImageLoading();
         current_match=(ImageView)findViewById(R.id.match_pic);
         ImageView image = new ImageView(this);
-        initialImages();
         Picasso.get().load(matchImages.get(0)).into(current_match); //loads initial image
 
         like_button=(Button) findViewById(R.id.like_btn);
@@ -37,7 +36,7 @@ public class HomePage extends AppCompatActivity {
             @Override
             public void onClick(View view)
                 {
-                imageChanger();
+                    startImageSwitching();
                 }
             });
 
@@ -78,6 +77,47 @@ public class HomePage extends AppCompatActivity {
         startActivity(start_popup);
         }
 
+    public void startImageLoading() {
+        new Thread(new Image_loader_thread()).start();
+    }
+
+    public void startImageSwitching() {
+        new Thread(new image_switch_thread()).start();
+    }
+
+    class Image_loader_thread implements Runnable {
+        @Override
+        public void run() {
+                initialImages();
+                try {
+                    Thread.sleep(1000);
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+            }
+        }
+
+    class image_switch_thread implements Runnable {
+        @Override
+        public void run() {
+                try {
+                    runOnUiThread(new Runnable() {
+                        @Override
+                        public void run() {
+                            imageChanger();
+                        }
+                    });
+                    Thread.sleep(1000);
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+        }
+    }
+
+
 }
+
+
+
 
 
