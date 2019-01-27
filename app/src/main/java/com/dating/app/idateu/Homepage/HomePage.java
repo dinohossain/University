@@ -72,9 +72,10 @@ public class HomePage extends AppCompatActivity {
 
     private void startPop_up()
         {
-        Intent start_popup = new Intent(HomePage.this, Pop_up.class);
-        start_popup.putExtra("picture_ID", matchImages.get(matchPicIndex));
-        startActivity(start_popup);
+//        Intent start_popup = new Intent(HomePage.this, Pop_up.class);
+//        start_popup.putExtra("picture_ID", matchImages.get(matchPicIndex));
+//        startActivity(start_popup);
+        startActivity(new Intent(HomePage.this,PopUp_launcher.class));
         }
 
     public void startImageLoading() {
