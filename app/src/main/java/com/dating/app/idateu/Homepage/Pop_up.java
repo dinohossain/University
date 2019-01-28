@@ -9,6 +9,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.TextView;
 
 import com.dating.app.idateu.R;
 
@@ -42,11 +43,15 @@ public class Pop_up extends Fragment {
 
         private static final String TAG = "PopUpBio";
 
+        TextView bio;
 
         @Nullable
         @Override
         public View onCreateView(final LayoutInflater inflater, @Nullable ViewGroup container, Bundle savedInstanceState) {
+
             View view = inflater.inflate(R.layout.matched_pop_up, container, false);
+            bio = view.findViewById(R.id.bio_txt);
+            bio.setText("Is it working?");
             return view;
         }
 
