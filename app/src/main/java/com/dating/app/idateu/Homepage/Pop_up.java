@@ -49,7 +49,7 @@ public class Pop_up extends Fragment {
         @Override
         public View onCreateView(final LayoutInflater inflater, @Nullable ViewGroup container, Bundle savedInstanceState) {
 
-            View view = inflater.inflate(R.layout.matched_pop_up, container, false);
+            View view = inflater.inflate(R.layout.bio_pop_up, container, false);
             bio = view.findViewById(R.id.bio_txt);
             bio.setText("Is it working?");
             return view;
