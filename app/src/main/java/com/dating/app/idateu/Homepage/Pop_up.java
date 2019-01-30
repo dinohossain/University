@@ -13,7 +13,7 @@ import android.widget.TextView;
 
 import com.dating.app.idateu.R;
 
-public class Pop_up extends Fragment{
+public class Pop_up extends Fragment {
 
     private static final String TAG = "Pop_up";
     private static final int SWIPE_THRESHOLD = 120;
@@ -22,47 +22,19 @@ public class Pop_up extends Fragment{
     ImageView imgPopUp;
     private GestureDetector gestureDetector;
 
+    Integer currentImage;
+
+    public void input_image(Integer cI) {
+        this.currentImage = cI;
+    }
+
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.matched_pop_up, container, false);
 
         imgPopUp = view.findViewById(R.id.matched_pop_up_img);
-        imgPopUp.setImageResource(R.drawable.img_001);
-
-
+        imgPopUp.setImageResource(currentImage);
         return view;
-        }
-
-
-
-        private void onSwipeTop() {
-        }
-
-        private void onSwipeBottom() {
-            FragmentTransaction transaction = getFragmentManager().beginTransaction();
-            transaction.replace(R.id.container, new Pop_up_bio(), "PopUpBio");
-            transaction.commit();
-        }
-
-
-
-
-    public static class Pop_up_bio extends Fragment {
-
-        private static final String TAG = "PopUpBio";
-
-        TextView bio;
-
-        @Nullable
-        @Override
-        public View onCreateView(final LayoutInflater inflater, @Nullable ViewGroup container, Bundle savedInstanceState) {
-
-            View view = inflater.inflate(R.layout.bio_pop_up, container, false);
-            bio = view.findViewById(R.id.bio_txt);
-            bio.setText("Is it working?");
-            return view;
-        }
-
     }
 }

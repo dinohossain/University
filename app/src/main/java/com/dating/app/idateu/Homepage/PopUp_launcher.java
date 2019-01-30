@@ -13,13 +13,17 @@ import com.dating.app.idateu.R;
 
 public class PopUp_launcher extends AppCompatActivity implements GestureDetector.OnGestureListener {
 
-    private static final String TAG = "Pop_luancher";
+    private static final String TAG = "Pop_launcher";
 
     private GestureDetector gestureDetector;
 
     private static final int SWIPE_MIN_DISTANCE = 120;
     private static final int SWIPE_MAX_OFF_PATH = 250;
     private static final int SWIPE_THRESHOLD_VELOCITY = 200;
+    FragmentTransaction transaction;
+    Bundle extras;
+    Integer selected_img;
+    int indexForBio;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -33,15 +37,19 @@ public class PopUp_launcher extends AppCompatActivity implements GestureDetector
 
         getWindow().setLayout((int)(width*.8),(int)(height*.6));
         gestureDetector = new GestureDetector(this);
-
-
-        Pop_up fragment = new Pop_up();
-
-        FragmentTransaction transaction = getFragmentManager().beginTransaction();
-        transaction.replace(R.id.container, fragment, "Pop_up");
-        transaction.commit();
-
+        popUpImage();
     }
+
+    private void popUpImage()
+        {
+            extras = getIntent().getExtras();
+            selected_img = extras.getInt("picture_ID");
+            Pop_up fragment = new Pop_up();
+            fragment.input_image(selected_img);
+            transaction = getFragmentManager().beginTransaction();
+            transaction.replace(R.id.container, fragment, "Pop_up");
+            transaction.commit();
+        }
 
     @Override
     public boolean onDown(MotionEvent motionEvent) {
@@ -75,7 +83,7 @@ public class PopUp_launcher extends AppCompatActivity implements GestureDetector
             case 1:
                 onDownSwipe();
                 return true;
-            case 3:
+            case 2:
                 onUpSwipe();
                 return true;
         }
@@ -87,15 +95,9 @@ public class PopUp_launcher extends AppCompatActivity implements GestureDetector
         if (angle > 45 && angle <= 135)
             // top
             return 1;
-        if (angle >= 135 && angle < 180 || angle < -135 && angle > -180)
-            // left
-            return 2;
         if (angle < -45 && angle>= -135)
             // down
-            return 3;
-        if (angle > -45 && angle <= 45)
-            // right
-            return 4;
+            return 2;
         return 0;
     }
 
@@ -107,17 +109,16 @@ public class PopUp_launcher extends AppCompatActivity implements GestureDetector
 
     public void onDownSwipe()
         {
-        Pop_up.Pop_up_bio fragment = new Pop_up.Pop_up_bio();
-        FragmentTransaction transaction = getFragmentManager().beginTransaction();
+        Pop_up_bio fragment = new Pop_up_bio();
+        indexForBio = extras.getInt("index");
+        fragment.input_bio(indexForBio);
+        transaction = getFragmentManager().beginTransaction();
         transaction.replace(R.id.container, fragment, "Pop_up");
         transaction.commit();
         }
 
     public void onUpSwipe()
     {
-        Pop_up fragment = new Pop_up();
-        FragmentTransaction transaction = getFragmentManager().beginTransaction();
-        transaction.replace(R.id.container, fragment, "Pop_up");
-        transaction.commit();
+    popUpImage();
     }
 }

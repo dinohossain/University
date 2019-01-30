@@ -27,7 +27,7 @@ public class HomePage extends AppCompatActivity {
         startImageLoading();
         current_match=(ImageView)findViewById(R.id.match_pic);
         ImageView image = new ImageView(this);
-        Picasso.get().load(matchImages.get(0)).into(current_match); //loads initial image
+        Picasso.get().load(matchImages.get(matchPicIndex)).into(current_match); //loads initial image
 
         like_button=(Button) findViewById(R.id.like_btn);
         dislike_button = findViewById(R.id.dislike_btn);
@@ -72,10 +72,10 @@ public class HomePage extends AppCompatActivity {
 
     private void startPop_up()
         {
-//        Intent start_popup = new Intent(HomePage.this, Pop_up.class);
-//        start_popup.putExtra("picture_ID", matchImages.get(matchPicIndex));
-//        startActivity(start_popup);
-        startActivity(new Intent(HomePage.this,PopUp_launcher.class));
+        Intent start_popup = new Intent(HomePage.this, PopUp_launcher.class);
+        start_popup.putExtra("picture_ID", matchImages.get(matchPicIndex));
+        start_popup.putExtra("index",matchPicIndex+1);
+        startActivity(start_popup);
         }
 
     public void startImageLoading() {
