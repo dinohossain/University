@@ -1,13 +1,12 @@
 package com.dating.app.idateu.Homepage;
 
+import android.annotation.SuppressLint;
 import android.app.FragmentTransaction;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.util.DisplayMetrics;
 import android.view.GestureDetector;
 import android.view.MotionEvent;
-
-
 import com.dating.app.idateu.R;
 
 
@@ -37,7 +36,18 @@ public class PopUp_launcher extends AppCompatActivity implements GestureDetector
 
         getWindow().setLayout((int)(width*.8),(int)(height*.6));
         gestureDetector = new GestureDetector(this);
-        popUpImage();
+        popUpImageInit();
+    }
+
+    private void popUpImageInit()
+    {
+        extras = getIntent().getExtras();
+        selected_img = extras.getInt("picture_ID");
+        Pop_up fragment = new Pop_up();
+        fragment.input_image(selected_img);
+        transaction = getFragmentManager().beginTransaction();
+        transaction.replace(R.id.container, fragment, "Pop_up");
+        transaction.commit();
     }
 
     private void popUpImage()
@@ -47,6 +57,7 @@ public class PopUp_launcher extends AppCompatActivity implements GestureDetector
             Pop_up fragment = new Pop_up();
             fragment.input_image(selected_img);
             transaction = getFragmentManager().beginTransaction();
+            transaction.setCustomAnimations(R.animator.slide_in_down, R.animator.slide_out_up);
             transaction.replace(R.id.container, fragment, "Pop_up");
             transaction.commit();
         }
@@ -81,10 +92,10 @@ public class PopUp_launcher extends AppCompatActivity implements GestureDetector
 
         switch (getSlope(e1.getX(), e1.getY(), e2.getX(), e2.getY())) {
             case 1:
-                onDownSwipe();
+                onUpSwipe();
                 return true;
             case 2:
-                onUpSwipe();
+                onDownSwipe();
                 return true;
         }
         return false;
@@ -109,16 +120,18 @@ public class PopUp_launcher extends AppCompatActivity implements GestureDetector
 
     public void onDownSwipe()
         {
-        Pop_up_bio fragment = new Pop_up_bio();
-        indexForBio = extras.getInt("index");
-        fragment.input_bio(indexForBio);
-        transaction = getFragmentManager().beginTransaction();
-        transaction.replace(R.id.container, fragment, "Pop_up");
-        transaction.commit();
+            popUpImage();
+
         }
 
     public void onUpSwipe()
     {
     popUpImage();
+    Pop_up_bio fragment = new Pop_up_bio();
+    indexForBio = extras.getInt("index");
+    fragment.input_bio(indexForBio);
+    transaction = getFragmentManager().beginTransaction();
+    transaction.replace(R.id.container, fragment, "Pop_up");
+    transaction.commit();
     }
 }
