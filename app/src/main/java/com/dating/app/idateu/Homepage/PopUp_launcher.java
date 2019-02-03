@@ -131,7 +131,7 @@ public class PopUp_launcher extends AppCompatActivity implements GestureDetector
     indexForBio = extras.getInt("index");
     fragment.input_bio(indexForBio);
     transaction = getFragmentManager().beginTransaction();
-    transaction.setCustomAnimations(R.animator.slide_out_down, R.animator.slide_out_up);
+    transaction.setCustomAnimations(R.animator.slide_in_up, R.animator.slide_out_down);
     transaction.replace(R.id.container, fragment, "Pop_up");
     transaction.commit();
     }
