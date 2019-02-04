@@ -16,10 +16,6 @@ public class PopUp_launcher extends AppCompatActivity implements GestureDetector
 
     private GestureDetector gestureDetector;
 
-    private static final int SWIPE_MIN_DISTANCE = 120;
-    private static final int SWIPE_MAX_OFF_PATH = 250;
-    private static final int SWIPE_THRESHOLD_VELOCITY = 200;
-    FragmentTransaction transaction;
     Bundle extras;
     Integer selected_img;
     int indexForBio;
@@ -45,9 +41,7 @@ public class PopUp_launcher extends AppCompatActivity implements GestureDetector
         selected_img = extras.getInt("picture_ID");
         Pop_up fragment = new Pop_up();
         fragment.input_image(selected_img);
-        transaction = getFragmentManager().beginTransaction();
-        transaction.replace(R.id.container, fragment, "Pop_up");
-        transaction.commit();
+
     }
 
     private void popUpImage()
@@ -56,10 +50,7 @@ public class PopUp_launcher extends AppCompatActivity implements GestureDetector
             selected_img = extras.getInt("picture_ID");
             Pop_up fragment = new Pop_up();
             fragment.input_image(selected_img);
-            transaction = getFragmentManager().beginTransaction();
-            transaction.setCustomAnimations(R.animator.slide_out_down, R.animator.slide_out_up);
-            transaction.replace(R.id.container, fragment, "Pop_up");
-            transaction.commit();
+
         }
 
     @Override
@@ -130,9 +121,5 @@ public class PopUp_launcher extends AppCompatActivity implements GestureDetector
     Pop_up_bio fragment = new Pop_up_bio();
     indexForBio = extras.getInt("index");
     fragment.input_bio(indexForBio);
-    transaction = getFragmentManager().beginTransaction();
-    transaction.setCustomAnimations(R.animator.slide_in_up, R.animator.slide_out_down);
-    transaction.replace(R.id.container, fragment, "Pop_up");
-    transaction.commit();
     }
 }
