@@ -20,25 +20,8 @@ public class Pop_up_bio extends Fragment {
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.bio_pop_up, container, false);
         bio = view.findViewById(R.id.bio_txt);
+        bio.setText(R.string.bio_1);
 
-        switch (bioIndex)
-        {
-            case 1:
-                bio.setText(R.string.bio_1);
-                break;
-            case 2:
-                bio.setText(R.string.bio_2);
-                break;
-            case 3:
-                bio.setText(R.string.bio_3);
-                break;
-        }
-        return view;
-    }
-
-    public void input_bio(int index)
-    {
-        this.bioIndex = index;
-    }
+    return view;}
 }
 

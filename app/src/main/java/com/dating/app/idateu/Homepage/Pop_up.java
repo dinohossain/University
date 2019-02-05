@@ -26,7 +26,7 @@ public class Pop_up extends Fragment {
         View view = inflater.inflate(R.layout.matched_pop_up, container, false);
 
         imgPopUp = view.findViewById(R.id.matched_pop_up_img);
-        imgPopUp.setImageResource(currentImage);
+        imgPopUp.setImageResource(R.drawable.img_001);
         return view;
     }
 }
