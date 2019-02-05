@@ -15,6 +15,7 @@ public class Pop_up extends Fragment {
 
     ImageView imgPopUp;
     Integer currentImage;
+    Bundle extras;
 
     public void input_image(Integer cI) {
         this.currentImage = cI;
@@ -24,9 +25,9 @@ public class Pop_up extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.matched_pop_up, container, false);
-
+        extras = getActivity().getIntent().getExtras();
         imgPopUp = view.findViewById(R.id.matched_pop_up_img);
-        imgPopUp.setImageResource(R.drawable.img_001);
+        imgPopUp.setImageResource(extras.getInt("picture_ID"));
         return view;
     }
 }
