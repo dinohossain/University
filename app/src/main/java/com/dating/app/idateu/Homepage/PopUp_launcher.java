@@ -41,18 +41,22 @@ public class PopUp_launcher extends FragmentActivity {
         getWindow().setLayout((int)(width*.8),(int)(height*.6));
 
         this.initialisePaging();
+        extras.getClass().g;
+
     }
 
-    private void initialisePaging() {
-
-        List<Fragment> fragments = new Vector<Fragment>();
-        fragments.add(Fragment.instantiate(this, Pop_up.class.getName()));
-        fragments.add(Fragment.instantiate(this, Pop_up_bio.class.getName()));
-        this.mPagerAdapter  = new VerticalViewPager(super.getSupportFragmentManager(), fragments);
-        //
-        ViewPager pager = super.findViewById(R.id.container);
-        pager.setAdapter(this.mPagerAdapter);
-    }
+//    private void initialisePaging() {
+//
+//        List<Fragment> fragments = new Vector<Fragment>();
+//        Pop_up f1 = new Pop_up();
+//        f1.setArguments(bundle);
+//        fragments.add(Fragment.instantiate(this, f1.getClass().getName()));
+//        fragments.add(Fragment.instantiate(this, Pop_up_bio.class.getName()));
+//        this.mPagerAdapter  = new VerticalViewPager(super.getSupportFragmentManager(), fragments);
+//        //
+//        ViewPager pager = super.findViewById(R.id.container);
+//        pager.setAdapter(this.mPagerAdapter);
+//    }
 
 
 
