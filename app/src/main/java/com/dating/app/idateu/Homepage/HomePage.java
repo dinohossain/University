@@ -1,6 +1,7 @@
 package com.dating.app.idateu.Homepage;
 
 import android.content.Intent;
+import android.os.SystemClock;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -17,6 +18,7 @@ public class HomePage extends AppCompatActivity {
     int matchPicIndex = 0;
     ImageView current_match;
     Button like_button, dislike_button;
+    private long mLastClickTime = 0;
 
 
     private ArrayList<Integer> matchImages = new ArrayList<Integer>();
@@ -45,9 +47,14 @@ public class HomePage extends AppCompatActivity {
             @Override
             public void onClick(View view)
                 {
-                startPop_up();
+                if (SystemClock.elapsedRealtime() - mLastClickTime < 1000) //stops double clicking (double pop_up)
+                    {
+                    return;
+                    }
+                    mLastClickTime = SystemClock.elapsedRealtime();
+                    startPop_up();
                 }
-                });
+            });
         }
 
         private void imageChanger()
