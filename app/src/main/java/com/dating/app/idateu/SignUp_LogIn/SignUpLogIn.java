@@ -7,7 +7,6 @@ import android.view.View;
 import android.widget.Button;
 
 import com.dating.app.idateu.Homepage.HomePage;
-import com.dating.app.idateu.Homepage.VerticalViewPager;
 import com.dating.app.idateu.R;
 
 public class SignUpLogIn extends AppCompatActivity

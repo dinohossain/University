@@ -1,4 +1,4 @@
-package com.dating.app.idateu.Homepage;
+package com.dating.app.idateu.Homepage.Pop_up;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;

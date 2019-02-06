@@ -1,16 +1,20 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout
+<com.dating.app.idateu.Homepage.Pop_up.VerticalPager
     xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/verticalPagerXML"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <fragment
+    android:id="@+id/top_fragment"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".Homepage.Pop_up">
+    class="com.dating.app.idateu.Homepage.Pop_up.Pop_up" />
 
-    <android.support.v4.view.ViewPager
+    <fragment
+        android:id="@+id/bottom_fragment"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:id="@+id/container">
-    </android.support.v4.view.ViewPager>
+        class="com.dating.app.idateu.Homepage.Pop_up.Pop_up_bio" />
 
-</android.support.constraint.ConstraintLayout>
+</com.dating.app.idateu.Homepage.Pop_up.VerticalPager>
