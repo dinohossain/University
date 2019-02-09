@@ -9,6 +9,7 @@ import android.util.DisplayMetrics;
 import android.view.View;
 import android.view.ViewTreeObserver;
 
+
 import com.dating.app.idateu.R;
 
 import java.util.List;
@@ -22,11 +23,11 @@ public class PopUp_launcher extends AppCompatActivity {
     Bundle extras;
     public VerticalPager mVerticalPager;
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.fragment_for_pop_up);
-
         DisplayMetrics dm = new DisplayMetrics();
         getWindowManager().getDefaultDisplay().getMetrics(dm);
         int width = dm.widthPixels;
@@ -76,4 +77,12 @@ public class PopUp_launcher extends AppCompatActivity {
         });
     }
 
+    @Override
+    public void finish()
+    {
+    super.finish();
+    overridePendingTransition(R.anim.fade_out,R.anim.fade_out);
+    }
+
 }
+

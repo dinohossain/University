@@ -1,5 +1,6 @@
 package com.dating.app.idateu.Homepage;
 
+import android.app.ActivityOptions;
 import android.content.Intent;
 import android.os.SystemClock;
 import android.support.v7.app.AppCompatActivity;
@@ -84,6 +85,7 @@ public class HomePage extends AppCompatActivity {
         start_popup.putExtra("picture_ID", matchImages.get(matchPicIndex));
         start_popup.putExtra("index",matchPicIndex+1);
         startActivity(start_popup);
+        overridePendingTransition(R.anim.fade_in,R.anim.fade_out);
         }
 
     public void startImageLoading() {
@@ -122,6 +124,15 @@ public class HomePage extends AppCompatActivity {
                 }
         }
     }
+
+    @Override
+    public void onBackPressed()
+        {
+            Intent a = new Intent(Intent.ACTION_MAIN);
+            a.addCategory(Intent.CATEGORY_HOME);
+            a.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+            startActivity(a);
+        }
 
 
 }

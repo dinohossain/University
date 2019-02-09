@@ -4,9 +4,12 @@
     android:id="@+id/verticalPagerXML"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/purple">
+    android:background="@color/purple"
+    android:inAnimation="@anim/fade_in"
+    android:outAnimation="@anim/fade_out">
 
-    <fragment
+
+<fragment
     android:id="@+id/top_fragment"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
