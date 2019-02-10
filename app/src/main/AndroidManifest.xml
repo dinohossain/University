@@ -40,6 +40,12 @@
         <activity android:name=".Homepage.HomePage"
             android:configChanges="orientation"
             android:screenOrientation="portrait"/>
+
+        <activity android:name=".Homepage.Pop_up.PopUp_launcher"
+            android:configChanges="orientation"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme.TransparentPopUp"/>
+
     </application>
 
 </manifest>
