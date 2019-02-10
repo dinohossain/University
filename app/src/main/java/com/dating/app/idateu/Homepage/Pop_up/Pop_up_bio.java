@@ -12,7 +12,6 @@ import com.dating.app.idateu.R;
 
 public class Pop_up_bio extends Fragment {
 
-    int bioIndex;
     TextView bio;
     Bundle extras;
 

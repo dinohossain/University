@@ -7,6 +7,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.TextView;
 
 import com.dating.app.idateu.R;
 
@@ -14,12 +15,8 @@ public class Pop_up extends Fragment {
     private static final String TAG = "Pop_up";
 
     ImageView imgPopUp;
-    Integer currentImage;
     Bundle extras;
-
-    public void input_image(Integer cI) {
-        this.currentImage = cI;
-    }
+    TextView username;
 
     @Nullable
     @Override
@@ -27,7 +24,29 @@ public class Pop_up extends Fragment {
         View view = inflater.inflate(R.layout.matched_pop_up, container, false);
         extras = getActivity().getIntent().getExtras();
         imgPopUp = view.findViewById(R.id.matched_pop_up_img);
+        username = view.findViewById(R.id.username_pop_txt);
         imgPopUp.setImageResource(extras.getInt("picture_ID"));
+        getUserName();
         return view;
     }
+
+
+    public void getUserName()
+        {
+            switch (extras.getInt("index"))
+            {
+                case 1:
+                    username.setText(R.string.img1Name);
+                    break;
+                case 2:
+                    username.setText(R.string.img2Name);
+                    break;
+                case 3:
+                    username.setText(R.string.img3Name);
+                    break;
+            }
+        }
+
+
+
 }

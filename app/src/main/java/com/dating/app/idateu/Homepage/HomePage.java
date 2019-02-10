@@ -1,6 +1,5 @@
 package com.dating.app.idateu.Homepage;
 
-import android.app.ActivityOptions;
 import android.content.Intent;
 import android.os.SystemClock;
 import android.support.v7.app.AppCompatActivity;
@@ -8,6 +7,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.TextView;
 
 import com.dating.app.idateu.Homepage.Pop_up.PopUp_launcher;
 import com.dating.app.idateu.R;
@@ -19,10 +19,12 @@ public class HomePage extends AppCompatActivity {
     int matchPicIndex = 0;
     ImageView current_match;
     Button like_button, dislike_button;
+    TextView userName;
     private long mLastClickTime = 0;
 
 
     private ArrayList<Integer> matchImages = new ArrayList<Integer>();
+    private ArrayList<String> userNameList = new ArrayList<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -30,9 +32,11 @@ public class HomePage extends AppCompatActivity {
         setContentView(R.layout.activity_home_page);
         startImageLoading();
         current_match=(ImageView)findViewById(R.id.match_pic);
+        userName = findViewById(R.id.username_txt);
         ImageView image = new ImageView(this);
         Picasso.get().load(matchImages.get(matchPicIndex)).into(current_match); //loads initial image
-
+        initiateUserName();
+        userName.setText(userNameList.get(matchPicIndex));
         like_button=(Button) findViewById(R.id.like_btn);
         dislike_button = findViewById(R.id.dislike_btn);
 
@@ -58,17 +62,27 @@ public class HomePage extends AppCompatActivity {
             });
         }
 
-        private void imageChanger()
+    private void initiateUserName()
+        {
+        userNameList.add(getResources().getString(R.string.img1Name));
+        userNameList.add(getResources().getString(R.string.img2Name));
+        userNameList.add(getResources().getString(R.string.img3Name));
+
+        }
+
+    private void imageChanger()
             {
             if (matchImages.size() != matchPicIndex +1)
                 {
                 matchPicIndex++;
                 Picasso.get().load(matchImages.get(matchPicIndex)).into(current_match);
+                userName.setText(userNameList.get(matchPicIndex));
                 }
             else
                 {
                 matchPicIndex = 0;
                 Picasso.get().load(matchImages.get(matchPicIndex)).into(current_match);
+                userName.setText(userNameList.get(matchPicIndex));
                 }
             }
 

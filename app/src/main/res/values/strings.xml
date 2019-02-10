@@ -26,4 +26,8 @@
     <string name="bio_3">Lorie is a cat-lover and CMAS diver from Michigan. Please email
         lorie@domain.com or go to ExampleDomain.com to contact Lorie.</string>
 
+    <string name="img1Name">No Name</string>
+    <string name="img2Name">Water Girl</string>
+    <string name="img3Name">Flame</string>
+
 </resources>
