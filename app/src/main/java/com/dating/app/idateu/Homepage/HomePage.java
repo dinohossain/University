@@ -10,8 +10,20 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.dating.app.idateu.Homepage.Pop_up.PopUp_launcher;
+
 import com.dating.app.idateu.R;
+
 import com.squareup.picasso.Picasso;
+
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.InputStream;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.ArrayList;
 
 public class HomePage extends AppCompatActivity {
@@ -22,7 +34,6 @@ public class HomePage extends AppCompatActivity {
     TextView userName;
     private long mLastClickTime = 0;
 
-
     private ArrayList<Integer> matchImages = new ArrayList<Integer>();
     private ArrayList<String> userNameList = new ArrayList<>();
 
@@ -31,6 +42,7 @@ public class HomePage extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home_page);
         startImageLoading();
+        connection();
         current_match=(ImageView)findViewById(R.id.match_pic);
         userName = findViewById(R.id.username_txt);
         ImageView image = new ImageView(this);
@@ -61,6 +73,56 @@ public class HomePage extends AppCompatActivity {
                 }
             });
         }
+
+    private void connection()
+    {
+        try
+        {
+            PreparedStatement stmt;
+            ResultSet rs;
+
+            //Register the JDBC driver for MySQL
+
+            Class.forName("com.mysql.jdbc.Driver");
+
+            String url = "jdbc:mysql://172.31.82.74/idateu";
+
+            Connection con = DriverManager.getConnection( url,"root","Admin123");
+
+            //Get a Statement object
+
+            // insert image
+            File image = new File("img_001.png");
+            FileInputStream inputStream = new FileInputStream(image);
+
+
+            // Insert a row
+
+            stmt = con.prepareStatement("INSERT INTO user (user_ID,profile_pic,name,dob,gender,orientation,bio) " + "VALUES(?,?,?,?,?,?,?);");
+            stmt.setInt(1, 1);
+            stmt.setBinaryStream(2, (InputStream) inputStream, (int)(image.length()));
+            stmt.setString(3, "Thomas");
+            stmt.setDate(4, java.sql.Date.valueOf("2013-09-04"));
+            stmt.setString(5, "M");
+            stmt.setString(6, "S");
+            stmt.setString(7, "Depending on howmany columns you wish to modify it "
+                    + "might be best to generate a script, "
+                    + "or use some kind of mysql client GUI");
+            stmt.executeUpdate();
+
+        }
+        catch (SQLException e) {
+            System.out.println(e);}
+        catch(FileNotFoundException e)
+        {
+            System.out.println("FileNotFoundException: - " + e);
+        }
+        catch(Exception e)
+        {
+            System.out.println(e);
+        }
+
+    }
 
     private void initiateUserName()
         {
