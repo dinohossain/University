@@ -4,6 +4,7 @@
     <modules>
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
       <module fileurl="file://$PROJECT_DIR$/iDATEu.iml" filepath="$PROJECT_DIR$/iDATEu.iml" />
+      <module fileurl="file://$PROJECT_DIR$/mysqljdbc/mysqljdbc.iml" filepath="$PROJECT_DIR$/mysqljdbc/mysqljdbc.iml" />
     </modules>
   </component>
 </project>

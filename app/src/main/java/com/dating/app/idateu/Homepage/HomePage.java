@@ -1,6 +1,8 @@
 package com.dating.app.idateu.Homepage;
 
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.os.SystemClock;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -13,17 +15,18 @@ import com.dating.app.idateu.Homepage.Pop_up.PopUp_launcher;
 
 import com.dating.app.idateu.R;
 
+import com.google.android.gms.common.util.IOUtils;
 import com.squareup.picasso.Picasso;
 
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
+import java.io.ByteArrayInputStream;
+import java.io.IOException;
 import java.io.InputStream;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.ArrayList;
 
 public class HomePage extends AppCompatActivity {
@@ -37,19 +40,53 @@ public class HomePage extends AppCompatActivity {
     private ArrayList<Integer> matchImages = new ArrayList<Integer>();
     private ArrayList<String> userNameList = new ArrayList<>();
 
+    ResultSet rs = null ;
+    Bitmap current_image = null;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home_page);
         startImageLoading();
-        connection();
-        current_match=(ImageView)findViewById(R.id.match_pic);
+        try
+        {
+
+            Class.forName("com.mysql.jdbc.Driver");
+
+            String url = "jdbc:mysql://172.31.82.74/idateu";
+
+            Connection con = DriverManager.getConnection( url,"root","Admin123");
+            Statement select = con.createStatement();
+
+
+            rs = select.executeQuery("SELECT * FROM user WHERE user_ID = '1'");
+
+        }
+        catch (SQLException e) {
+            System.out.println(e);}
+        catch(Exception e)
+        {
+            System.out.println(e);
+        }
+        current_match=findViewById(R.id.match_pic);
         userName = findViewById(R.id.username_txt);
-        ImageView image = new ImageView(this);
-        Picasso.get().load(matchImages.get(matchPicIndex)).into(current_match); //loads initial image
+        try {
+            InputStream streamArray = rs.getBlob(2).getBinaryStream();
+            byte[] byteArray =IOUtils.toByteArray(streamArray);
+            ByteArrayInputStream imageStream = new ByteArrayInputStream(byteArray);
+            current_image= BitmapFactory.decodeStream(imageStream);
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+
+        Picasso.get().load(String.valueOf(current_image)).into(current_match);
+
         initiateUserName();
         userName.setText(userNameList.get(matchPicIndex));
-        like_button=(Button) findViewById(R.id.like_btn);
+        like_button= findViewById(R.id.like_btn);
         dislike_button = findViewById(R.id.dislike_btn);
 
         like_button.setOnClickListener(new View.OnClickListener() {
@@ -79,7 +116,6 @@ public class HomePage extends AppCompatActivity {
         try
         {
             PreparedStatement stmt;
-            ResultSet rs;
 
             //Register the JDBC driver for MySQL
 
@@ -88,35 +124,14 @@ public class HomePage extends AppCompatActivity {
             String url = "jdbc:mysql://172.31.82.74/idateu";
 
             Connection con = DriverManager.getConnection( url,"root","Admin123");
-
-            //Get a Statement object
-
-            // insert image
-            File image = new File("img_001.png");
-            FileInputStream inputStream = new FileInputStream(image);
+            Statement select = con.createStatement();
 
 
-            // Insert a row
-
-            stmt = con.prepareStatement("INSERT INTO user (user_ID,profile_pic,name,dob,gender,orientation,bio) " + "VALUES(?,?,?,?,?,?,?);");
-            stmt.setInt(1, 1);
-            stmt.setBinaryStream(2, (InputStream) inputStream, (int)(image.length()));
-            stmt.setString(3, "Thomas");
-            stmt.setDate(4, java.sql.Date.valueOf("2013-09-04"));
-            stmt.setString(5, "M");
-            stmt.setString(6, "S");
-            stmt.setString(7, "Depending on howmany columns you wish to modify it "
-                    + "might be best to generate a script, "
-                    + "or use some kind of mysql client GUI");
-            stmt.executeUpdate();
+            rs = select.executeQuery("SELECT * FROM user WHERE user_ID = '1'");
 
         }
         catch (SQLException e) {
             System.out.println(e);}
-        catch(FileNotFoundException e)
-        {
-            System.out.println("FileNotFoundException: - " + e);
-        }
         catch(Exception e)
         {
             System.out.println(e);
