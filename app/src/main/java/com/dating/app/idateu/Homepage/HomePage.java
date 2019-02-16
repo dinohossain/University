@@ -1,5 +1,6 @@
 package com.dating.app.idateu.Homepage;
 
+import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
@@ -10,7 +11,9 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import com.dating.app.idateu.DatabaseConnector;
 import com.dating.app.idateu.Homepage.Pop_up.PopUp_launcher;
 
 import com.dating.app.idateu.R;
@@ -18,9 +21,11 @@ import com.dating.app.idateu.R;
 import com.google.android.gms.common.util.IOUtils;
 import com.squareup.picasso.Picasso;
 
+import java.io.BufferedInputStream;
 import java.io.ByteArrayInputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.sql.Blob;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
@@ -41,48 +46,14 @@ public class HomePage extends AppCompatActivity {
     private ArrayList<String> userNameList = new ArrayList<>();
 
     ResultSet rs = null ;
-    Bitmap current_image = null;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home_page);
-        startImageLoading();
-        try
-        {
 
-            Class.forName("com.mysql.jdbc.Driver");
-
-            String url = "jdbc:mysql://172.31.82.74/idateu";
-
-            Connection con = DriverManager.getConnection( url,"root","Admin123");
-            Statement select = con.createStatement();
-
-
-            rs = select.executeQuery("SELECT * FROM user WHERE user_ID = '1'");
-
-        }
-        catch (SQLException e) {
-            System.out.println(e);}
-        catch(Exception e)
-        {
-            System.out.println(e);
-        }
         current_match=findViewById(R.id.match_pic);
         userName = findViewById(R.id.username_txt);
-        try {
-            InputStream streamArray = rs.getBlob(2).getBinaryStream();
-            byte[] byteArray =IOUtils.toByteArray(streamArray);
-            ByteArrayInputStream imageStream = new ByteArrayInputStream(byteArray);
-            current_image= BitmapFactory.decodeStream(imageStream);
-        } catch (SQLException e) {
-            e.printStackTrace();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-
-
-        Picasso.get().load(String.valueOf(current_image)).into(current_match);
 
         initiateUserName();
         userName.setText(userNameList.get(matchPicIndex));
@@ -93,7 +64,7 @@ public class HomePage extends AppCompatActivity {
             @Override
             public void onClick(View view)
                 {
-                    startImageSwitching();
+                    internet();
                 }
             });
 
@@ -111,33 +82,6 @@ public class HomePage extends AppCompatActivity {
             });
         }
 
-    private void connection()
-    {
-        try
-        {
-            PreparedStatement stmt;
-
-            //Register the JDBC driver for MySQL
-
-            Class.forName("com.mysql.jdbc.Driver");
-
-            String url = "jdbc:mysql://172.31.82.74/idateu";
-
-            Connection con = DriverManager.getConnection( url,"root","Admin123");
-            Statement select = con.createStatement();
-
-
-            rs = select.executeQuery("SELECT * FROM user WHERE user_ID = '1'");
-
-        }
-        catch (SQLException e) {
-            System.out.println(e);}
-        catch(Exception e)
-        {
-            System.out.println(e);
-        }
-
-    }
 
     private void initiateUserName()
         {
@@ -198,6 +142,53 @@ public class HomePage extends AppCompatActivity {
                 }
             }
         }
+
+
+    public void internet() {
+        new Thread(new internet_thread()).start();
+        if(rs != null)
+        {
+            try
+            {
+                Blob test = rs.getBlob(2);
+                InputStream in = test.getBinaryStream();
+                BufferedInputStream bufferedInputStream = new BufferedInputStream(in);
+                Bitmap bmp = BitmapFactory.decodeStream(bufferedInputStream);
+                current_match.setImageBitmap(bmp);
+            }
+            catch (SQLException e)
+            {
+                e.printStackTrace();
+            }
+        }
+        else
+            {
+                Context context = getApplicationContext();
+                CharSequence text = "Rs is null!!!";
+                int duration = Toast.LENGTH_SHORT;
+
+                Toast toast = Toast.makeText(context, text, duration);
+                toast.show();
+            }
+    }
+
+    class internet_thread implements Runnable {
+        @Override
+        public void run() {
+            DatabaseConnector connect_image = new DatabaseConnector();
+            rs = connect_image.loadImage();
+            try {
+                rs.close();
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+            try {
+                Thread.sleep(1000);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+        }
+    }
 
     class image_switch_thread implements Runnable {
         @Override
