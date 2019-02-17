@@ -13,25 +13,19 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.dating.app.idateu.DI;
 import com.dating.app.idateu.DatabaseConnector;
 import com.dating.app.idateu.Homepage.Pop_up.PopUp_launcher;
 
 import com.dating.app.idateu.R;
 
-import com.google.android.gms.common.util.IOUtils;
 import com.squareup.picasso.Picasso;
 
+
 import java.io.BufferedInputStream;
-import java.io.ByteArrayInputStream;
-import java.io.IOException;
 import java.io.InputStream;
 import java.sql.Blob;
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.sql.Statement;
 import java.util.ArrayList;
 
 public class HomePage extends AppCompatActivity {
@@ -45,7 +39,8 @@ public class HomePage extends AppCompatActivity {
     private ArrayList<Integer> matchImages = new ArrayList<Integer>();
     private ArrayList<String> userNameList = new ArrayList<>();
 
-    ResultSet rs = null ;
+
+    DI data;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -64,7 +59,7 @@ public class HomePage extends AppCompatActivity {
             @Override
             public void onClick(View view)
                 {
-                    internet();
+                 internet();
                 }
             });
 
@@ -146,47 +141,31 @@ public class HomePage extends AppCompatActivity {
 
     public void internet() {
         new Thread(new internet_thread()).start();
-        if(rs != null)
-        {
-            try
-            {
-                Blob test = rs.getBlob(2);
-                InputStream in = test.getBinaryStream();
-                BufferedInputStream bufferedInputStream = new BufferedInputStream(in);
-                Bitmap bmp = BitmapFactory.decodeStream(bufferedInputStream);
-                current_match.setImageBitmap(bmp);
-            }
-            catch (SQLException e)
-            {
-                e.printStackTrace();
-            }
-        }
-        else
-            {
-                Context context = getApplicationContext();
-                CharSequence text = "Rs is null!!!";
-                int duration = Toast.LENGTH_SHORT;
 
-                Toast toast = Toast.makeText(context, text, duration);
-                toast.show();
-            }
     }
 
     class internet_thread implements Runnable {
         @Override
         public void run() {
             DatabaseConnector connect_image = new DatabaseConnector();
-            rs = connect_image.loadImage();
-            try {
-                rs.close();
-            } catch (SQLException e) {
-                e.printStackTrace();
-            }
-            try {
-                Thread.sleep(1000);
-            } catch (InterruptedException e) {
-                e.printStackTrace();
-            }
+            data = connect_image.loadImage();
+
+            runOnUiThread(new Runnable() {
+                @Override
+                public void run() {
+                    Blob test = data.getProfilePic();
+                    InputStream in = null;
+                    try {
+                        in = test.getBinaryStream();
+                    } catch (SQLException e) {
+                        e.printStackTrace();
+                    }
+                    BufferedInputStream bufferedInputStream = new BufferedInputStream(in);
+                    Bitmap bmp = BitmapFactory.decodeStream(bufferedInputStream);
+                    current_match.setImageBitmap(bmp);
+                }
+            });
+
         }
     }
 
