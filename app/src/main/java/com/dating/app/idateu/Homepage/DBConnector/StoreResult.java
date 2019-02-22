@@ -1,25 +1,29 @@
 package com.dating.app.idateu.Homepage.DBConnector;
 
+import java.io.InputStream;
+import java.io.Serializable;
 import java.sql.Blob;
+import java.sql.SQLException;
 
-public class StoreResult {
+public class StoreResult implements Serializable {
+    //Makes object transferring to different activities possible
 
-    Blob picture = null;
     String name = null;
+    String bio = null;
+    String picture = null;
 
-    public void setProfilePic(Blob pic)
+    public StoreResult(String pic, String name, String bio)
         {
-        this.picture = pic;
+        this.picture=pic;
+        this.name=name;
+        this.bio=bio;
         }
 
-    public void setName(String name)
-        {
-        this.name = name;
-        }
-
-    public Blob getProfilePic()
+    public String getProfilePic()
         {
         return picture;
         }
+
     public String getName(){return name;}
+    public String getBio(){return bio;}
 }

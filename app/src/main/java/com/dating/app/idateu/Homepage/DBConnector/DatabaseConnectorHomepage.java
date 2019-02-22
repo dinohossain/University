@@ -3,6 +3,11 @@ package com.dating.app.idateu.Homepage.DBConnector;
 import android.util.Log;
 import android.widget.ImageView;
 
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.sql.Blob;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
@@ -14,7 +19,7 @@ public class DatabaseConnectorHomepage
 
     {
     public StoreResult loadImage(int index) {
-        StoreResult storage = new StoreResult();
+        StoreResult storage;
         Connection conn = null;
         PreparedStatement statement = null;
         ResultSet rs = null;
@@ -32,10 +37,19 @@ public class DatabaseConnectorHomepage
 
             statement = conn.prepareStatement(query);
             rs = statement.executeQuery();
-            while (rs.next()) {
-            storage.setProfilePic(rs.getBlob(2));
-            storage.setName(rs.getString(3));}
-
+            String[] temp = new String[2];
+            Blob temp1;
+            InputStream is =null;
+            String response = null;
+            while (rs.next())
+                {
+                temp1=(rs.getBlob(2));
+                is = temp1.getBinaryStream();
+                response = convertStreamToString(is);
+                temp[0]=(rs.getString(3));
+                temp[1]=(rs.getString(7));
+                }
+            storage = new StoreResult(response,temp[0],temp[1]);
             }
         catch (Exception e)
             {
@@ -71,7 +85,25 @@ public class DatabaseConnectorHomepage
             }
         return storage;}
 
-}
+        private String convertStreamToString(InputStream is) {
+            BufferedReader reader = new BufferedReader(new InputStreamReader(is));
+            StringBuilder sb = new StringBuilder();
 
+            String line = null;
+            try {
+                while ((line = reader.readLine()) != null) {
+                    sb.append(line).append('\n');
+                }
+            } catch (IOException e) {
+                e.printStackTrace();
+            } finally {
+                try {
+                    is.close();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+            return sb.toString();
+        }
 
-
+    }

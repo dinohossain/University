@@ -3,6 +3,7 @@ package com.dating.app.idateu.Homepage;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.os.SystemClock;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -13,29 +14,24 @@ import android.widget.TextView;
 import com.dating.app.idateu.Homepage.DBConnector.StoreResult;
 import com.dating.app.idateu.Homepage.DBConnector.DatabaseConnectorHomepage;
 import com.dating.app.idateu.Homepage.Pop_up.PopUp_launcher;
-
 import com.dating.app.idateu.R;
 
-
 import java.io.BufferedInputStream;
+import java.io.ByteArrayInputStream;
 import java.io.InputStream;
-import java.sql.Blob;
-import java.sql.SQLException;
-import java.util.ArrayList;
+import java.nio.charset.StandardCharsets;
+
 
 public class HomePage extends AppCompatActivity {
 
-    int matchPicIndex = 0;
     ImageView current_match;
     Button like_button, dislike_button;
     TextView userName;
     private long mLastClickTime = 0;
     int matchIndex = 1;
-
-    private ArrayList<String> userNameList = new ArrayList<>();
-
-
     StoreResult data;
+    Bitmap bmp = null;
+    String mName = null;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -62,34 +58,25 @@ public class HomePage extends AppCompatActivity {
             @Override
             public void onClick(View view)
                 {
-//                if (SystemClock.elapsedRealtime() - mLastClickTime < 1000) //stops double clicking (double pop_up)
-//                    {
-//                    return;
-//                    }
-//                    mLastClickTime = SystemClock.elapsedRealtime();
-//                    startPop_up();
+                if (SystemClock.elapsedRealtime() - mLastClickTime < 1000) //stops double clicking (double pop_up)
+                    {
+                    return;
+                    }
+                    mLastClickTime = SystemClock.elapsedRealtime();
+                    startPop_up();
                 }
             });
         }
 
-
-
-
-
-
     private void startPop_up()
         {
         Intent start_popup = new Intent(HomePage.this, PopUp_launcher.class);
-        start_popup.putExtra("picture_ID", current_match.getImageAlpha());
-        start_popup.putExtra("index",matchPicIndex+1);
+        Bundle be = new Bundle();
+        be.putSerializable("Object",data);
+        start_popup.putExtras(be);
         startActivity(start_popup);
         overridePendingTransition(R.anim.fade_in,R.anim.fade_out);
         }
-
-
-    public void startImageSwitching() {
-        new Thread(new image_switch_thread()).start();
-    }
 
     public void LoadImageforIndex() {
         new Thread(new internet_thread()).start();
@@ -104,20 +91,19 @@ public class HomePage extends AppCompatActivity {
             runOnUiThread(new Runnable() {
                 @Override
                 public void run() {
-                    Blob image = data.getProfilePic();
-                    String mName = data.getName();
-                    InputStream in = null;
-                    if (image!=null)
+                    if (data!=null)
                         {
                         try
                             {
-                            in = image.getBinaryStream();
+                            mName = data.getName();
+                            InputStream in = null;
+                            in = new ByteArrayInputStream(data.getProfilePic().getBytes(StandardCharsets.UTF_8));
                             BufferedInputStream bufferedInputStream = new BufferedInputStream(in);
-                            Bitmap bmp = BitmapFactory.decodeStream(bufferedInputStream);
+                            bmp = BitmapFactory.decodeStream(bufferedInputStream);
                             current_match.setImageBitmap(bmp);
                             userName.setText(mName);
                             }
-                        catch (SQLException e)
+                        catch (Exception e)
                             {
                             e.printStackTrace();
                             }
@@ -129,23 +115,6 @@ public class HomePage extends AppCompatActivity {
                         }
                 }
             });
-        }
-    }
-
-    class image_switch_thread implements Runnable {
-        @Override
-        public void run() {
-                try {
-                    runOnUiThread(new Runnable() {
-                        @Override
-                        public void run() {
-
-                        }
-                    });
-                    Thread.sleep(1000);
-                } catch (InterruptedException e) {
-                    e.printStackTrace();
-                }
         }
     }
 
