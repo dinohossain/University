@@ -1,5 +1,6 @@
 package com.dating.app.idateu.Homepage.DBConnector;
 
+import android.util.Base64;
 import android.util.Log;
 import android.widget.ImageView;
 
@@ -44,8 +45,8 @@ public class DatabaseConnectorHomepage
             while (rs.next())
                 {
                 temp1=(rs.getBlob(2));
-                is = temp1.getBinaryStream();
-                response = convertStreamToString(is);
+                byte[] bdata = temp1.getBytes(1, (int) temp1.length());
+                response= Base64.encodeToString(bdata, Base64.DEFAULT);
                 temp[0]=(rs.getString(3));
                 temp[1]=(rs.getString(7));
                 }

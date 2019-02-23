@@ -6,6 +6,7 @@ import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.util.Base64;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -13,6 +14,7 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.dating.app.idateu.Homepage.DBConnector.SerialBlob;
 import com.dating.app.idateu.Homepage.DBConnector.StoreResult;
 import com.dating.app.idateu.R;
 
@@ -45,31 +47,33 @@ public class Pop_up extends Fragment {
 
         sr = (StoreResult) intent.getSerializableExtra("Object");
         if(sr!=null) {
-            loadImage();
-            imgPopUp.setImageBitmap(bmp);
-            loadName();
-            username.setText(mName);
+            imgPopUp.setImageBitmap(loadImage());
+            username.setText(loadName());
         }
         return view;
     }
 
-    private void loadImage()
+    private Bitmap loadImage()
         {
             try
             {
                 InputStream in = null;
-                in = new ByteArrayInputStream(sr.getProfilePic().getBytes(StandardCharsets.UTF_8));
+                String test = sr.getProfilePic();
+                byte[] imageArray = Base64.decode(test, Base64.DEFAULT);
+                Blob blob = new SerialBlob(imageArray);
+                in = blob.getBinaryStream();
                 BufferedInputStream bufferedInputStream = new BufferedInputStream(in);
-                bmp = BitmapFactory.decodeStream(bufferedInputStream);
+                return bmp = BitmapFactory.decodeStream(bufferedInputStream);
             }
             catch (Exception e)
             {
+                return null;
             }
         }
 
-    private void loadName()
+    private String loadName()
         {
-        mName = sr.getName();
+        return mName = sr.getName();
         }
 
 }

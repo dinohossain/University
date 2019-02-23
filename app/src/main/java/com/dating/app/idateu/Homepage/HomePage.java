@@ -6,20 +6,21 @@ import android.graphics.BitmapFactory;
 import android.os.SystemClock;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Base64;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.dating.app.idateu.Homepage.DBConnector.SerialBlob;
 import com.dating.app.idateu.Homepage.DBConnector.StoreResult;
 import com.dating.app.idateu.Homepage.DBConnector.DatabaseConnectorHomepage;
 import com.dating.app.idateu.Homepage.Pop_up.PopUp_launcher;
 import com.dating.app.idateu.R;
 
 import java.io.BufferedInputStream;
-import java.io.ByteArrayInputStream;
 import java.io.InputStream;
-import java.nio.charset.StandardCharsets;
+import java.sql.Blob;
 
 
 public class HomePage extends AppCompatActivity {
@@ -27,11 +28,9 @@ public class HomePage extends AppCompatActivity {
     ImageView current_match;
     Button like_button, dislike_button;
     TextView userName;
-    private long mLastClickTime = 0;
+    private long mLastClickTime = 0; //checks if the user has double tapped
     int matchIndex = 1;
     StoreResult data;
-    Bitmap bmp = null;
-    String mName = null;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -83,11 +82,23 @@ public class HomePage extends AppCompatActivity {
 
     }
 
-    class internet_thread implements Runnable {
+    private class internet_thread implements Runnable {
+        Bitmap bmp;
+        String mName = null;
+
+
         @Override
         public void run() {
-            DatabaseConnectorHomepage connect_image = new DatabaseConnectorHomepage();
-            data = connect_image.loadImage(matchIndex);
+            try {
+                DatabaseConnectorHomepage connect_image = new DatabaseConnectorHomepage();
+                data = connect_image.loadImage(matchIndex);
+                bmp = image();
+                }
+            catch (NullPointerException e)
+                {
+                matchIndex=1;
+                LoadImageforIndex();
+                }
             runOnUiThread(new Runnable() {
                 @Override
                 public void run() {
@@ -96,10 +107,6 @@ public class HomePage extends AppCompatActivity {
                         try
                             {
                             mName = data.getName();
-                            InputStream in = null;
-                            in = new ByteArrayInputStream(data.getProfilePic().getBytes(StandardCharsets.UTF_8));
-                            BufferedInputStream bufferedInputStream = new BufferedInputStream(in);
-                            bmp = BitmapFactory.decodeStream(bufferedInputStream);
                             current_match.setImageBitmap(bmp);
                             userName.setText(mName);
                             }
@@ -116,6 +123,25 @@ public class HomePage extends AppCompatActivity {
                 }
             });
         }
+
+    public Bitmap image()
+        {
+        try {
+            InputStream in = null;
+            String test = data.getProfilePic();
+            byte[] imageArray = Base64.decode(test, Base64.DEFAULT);
+            Blob blob = new SerialBlob(imageArray);
+            in = blob.getBinaryStream();
+            BufferedInputStream bufferedInputStream = new BufferedInputStream(in);
+            Bitmap bmp = BitmapFactory.decodeStream(bufferedInputStream);
+            return bmp;
+            }
+        catch (Exception e)
+            {
+            return null;
+            }
+        }
+
     }
 
     @Override
