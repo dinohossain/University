@@ -92,7 +92,7 @@ public class HomePage extends AppCompatActivity {
             try {
                 DatabaseConnectorHomepage connect_image = new DatabaseConnectorHomepage();
                 data = connect_image.loadImage(matchIndex);
-                bmp = image();
+                bmp = image(data.getProfilePic());
                 }
             catch (NullPointerException e)
                 {
@@ -124,12 +124,12 @@ public class HomePage extends AppCompatActivity {
             });
         }
 
-    public Bitmap image()
+    public Bitmap image(String picData)
         {
         try {
             InputStream in = null;
-            String test = data.getProfilePic();
-            byte[] imageArray = Base64.decode(test, Base64.DEFAULT);
+            String stringToByte = picData;
+            byte[] imageArray = Base64.decode(stringToByte, Base64.DEFAULT);
             Blob blob = new SerialBlob(imageArray);
             in = blob.getBinaryStream();
             BufferedInputStream bufferedInputStream = new BufferedInputStream(in);
