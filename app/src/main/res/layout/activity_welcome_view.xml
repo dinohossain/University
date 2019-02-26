@@ -19,6 +19,16 @@
         app:srcCompat="@drawable/logo2"/>
 
     <TextView
+        android:id="@+id/no_record"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:text="This account does not exist"
+        android:layout_marginTop="260dp"
+        android:textColor="@color/red"
+        />
+
+    <TextView
         android:id="@+id/appName"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
