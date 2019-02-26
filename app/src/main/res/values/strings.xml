@@ -2,7 +2,7 @@
     <string name="app_name">iDATEu</string>
     <string name="slogan">"\"Let's get shapey\""</string>
 
-    <string name="username_hint"><font size="22">Username</font></string>
+    <string name="email"><font size="22">Email</font></string>
     <string name="password_hint"><font size="22">Password</font></string>
 
     <string name="password_instruction">At least 6 characters long,
