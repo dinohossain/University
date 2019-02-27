@@ -91,7 +91,7 @@ public class HomePage extends AppCompatActivity {
         public void run() {
             try {
                 DatabaseConnectorHomepage connect_image = new DatabaseConnectorHomepage();
-                data = connect_image.loadImage(matchIndex);
+                data = connect_image.loadDataUserDetail(matchIndex);
                 bmp = image(data.getProfilePic());
                 }
             catch (NullPointerException e)

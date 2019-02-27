@@ -19,7 +19,7 @@ import java.sql.Statement;
 public class DatabaseConnectorHomepage
 
     {
-    public StoreResult loadImage(int index) {
+    public StoreResult loadDataUserDetail(int index) {
         StoreResult storage;
         Connection conn = null;
         PreparedStatement statement = null;
@@ -85,26 +85,5 @@ public class DatabaseConnectorHomepage
                 }
             }
         return storage;}
-
-        private String convertStreamToString(InputStream is) {
-            BufferedReader reader = new BufferedReader(new InputStreamReader(is));
-            StringBuilder sb = new StringBuilder();
-
-            String line = null;
-            try {
-                while ((line = reader.readLine()) != null) {
-                    sb.append(line).append('\n');
-                }
-            } catch (IOException e) {
-                e.printStackTrace();
-            } finally {
-                try {
-                    is.close();
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
-            }
-            return sb.toString();
-        }
 
     }

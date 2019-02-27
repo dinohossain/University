@@ -10,15 +10,13 @@ import android.widget.TextView;
 
 import com.dating.app.idateu.Homepage.HomePage;
 import com.dating.app.idateu.R;
+import com.dating.app.idateu.SignUp_LogIn.DBConnection.DatabaseConnectorLogIn;
 
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 public class SignUpLogIn extends AppCompatActivity
     {
-    String fakeEmail = "t@g.com";
-    String fakePass = "test";
-
     Button register_btn;
     Button login_btn;
 
@@ -51,12 +49,12 @@ public class SignUpLogIn extends AppCompatActivity
                 @Override
                 public void onClick(View view)
                 {
-                if(noUserError()) startActivity(new Intent(SignUpLogIn.this, HomePage.class));
+                if(noError()) startActivity(new Intent(SignUpLogIn.this, HomePage.class));
                 }
             });
         }
 
-        private boolean noUserError()
+        private boolean noError()
             {
             boolean status = false;
             String email = email_edit.getText().toString();
@@ -71,8 +69,23 @@ public class SignUpLogIn extends AppCompatActivity
 
         private boolean doesRecordExistInDB(String email, String password)
             {
-            if (email.equals(fakeEmail) && password.equals(fakePass)) return true;
-            noRecordMsg.setVisibility(View.VISIBLE);
+            internet_thread backendData = new internet_thread(email,password);
+            Thread load = new Thread(backendData);
+            load.start();
+                try {
+                    load.join();
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+                int status = backendData.getStatus();
+            switch (status)
+                {
+                case 0: noRecordMsg.setVisibility(View.VISIBLE);
+                        return false;
+                case 1: pass_edit.setError("Wrong Password");
+                        return false;
+                case 2: return true;
+                }
             return false;
             }
 
@@ -96,5 +109,30 @@ public class SignUpLogIn extends AppCompatActivity
                 }
             }
 
+        private class internet_thread implements Runnable
+            {
+                String email;
+                String password;
+                int status;
+
+
+                public internet_thread(String email, String password)
+                    {
+                    this.email = email;
+                    this.password = password;
+                    }
+
+                @Override
+                public void run()
+                    {
+                    int status = new DatabaseConnectorLogIn(email,password).loadDataUserDetail();
+                    this.status=status;
+                    }
+
+                public int getStatus()
+                    {
+                    return status;
+                    }
+            }
 
     }
