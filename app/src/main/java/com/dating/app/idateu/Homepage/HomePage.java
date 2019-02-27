@@ -89,36 +89,27 @@ public class HomePage extends AppCompatActivity {
 
         @Override
         public void run() {
-            try {
-                DatabaseConnectorHomepage connect_image = new DatabaseConnectorHomepage();
-                data = connect_image.loadDataUserDetail(matchIndex);
-                bmp = image(data.getProfilePic());
-                }
-            catch (NullPointerException e)
+            DatabaseConnectorHomepage connect_image = new DatabaseConnectorHomepage();
+            data = connect_image.loadDataUserDetail(matchIndex);
+            bmp = image(data.getProfilePic());
+            if (bmp==null)
                 {
-                matchIndex=1;
+                matchIndex = 1;
                 LoadImageforIndex();
                 }
+
             runOnUiThread(new Runnable() {
                 @Override
                 public void run() {
-                    if (data!=null)
+                    try
                         {
-                        try
-                            {
-                            mName = data.getName();
-                            current_match.setImageBitmap(bmp);
-                            userName.setText(mName);
-                            }
-                        catch (Exception e)
-                            {
-                            e.printStackTrace();
-                            }
+                        mName = data.getName();
+                        current_match.setImageBitmap(bmp);
+                        userName.setText(mName);
                         }
-                    else
+                    catch (Exception e)
                         {
-                        matchIndex =1;
-                        LoadImageforIndex();
+                        e.printStackTrace();
                         }
                 }
             });
