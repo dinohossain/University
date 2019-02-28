@@ -1,9 +1,16 @@
 package com.dating.app.idateu.Homepage;
 
+import android.app.AlertDialog;
+import android.app.Dialog;
+import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.os.SystemClock;
+import android.support.v4.app.DialogFragment;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Base64;
@@ -36,7 +43,9 @@ public class HomePage extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home_page);
-
+        if (!isNetworkAvailable())
+            {
+            }
         current_match=findViewById(R.id.match_pic);
         userName = findViewById(R.id.username_txt);
 
@@ -66,6 +75,13 @@ public class HomePage extends AppCompatActivity {
                 }
             });
         }
+
+    private boolean isNetworkAvailable() {
+        ConnectivityManager connectivityManager
+                = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
+        NetworkInfo activeNetworkInfo = connectivityManager.getActiveNetworkInfo();
+        return activeNetworkInfo != null;
+    }
 
     private void startPop_up()
         {
@@ -143,7 +159,11 @@ public class HomePage extends AppCompatActivity {
             a.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
             startActivity(a);
         }
-}
+
+
+    }
+
+
 
 
 

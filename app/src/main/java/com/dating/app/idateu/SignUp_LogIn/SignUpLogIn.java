@@ -1,6 +1,11 @@
 package com.dating.app.idateu.SignUp_LogIn;
 
+import android.app.AlertDialog;
+import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -28,8 +33,30 @@ public class SignUpLogIn extends AppCompatActivity
     @Override
     protected void onCreate(Bundle savedInstanceState)
         {
+            if (!isNetworkAvailable())
+                {
+                new AlertDialog.Builder(SignUpLogIn.this)
+                        .setTitle("No Internet Connection")
+                        .setMessage("Please make sure you are connected to the internet")
+
+                        // Specifying a listener allows you to take an action before dismissing the dialog.
+                        // The dialog is automatically dismissed when a dialog button is clicked.
+                        .setNeutralButton(android.R.string.yes, new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialog, int which)
+                                {
+                                Intent a = new Intent(Intent.ACTION_MAIN);
+                                a.addCategory(Intent.CATEGORY_HOME);
+                                a.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                                startActivity(a);
+                                }
+                        })
+                        // A null listener allows the button to dismiss the dialog and take no further action.
+                        .show();
+                 }
+
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_welcome_view);
+
         noRecordMsg=findViewById(R.id.no_record);
         noRecordMsg.setVisibility(View.INVISIBLE);
         email_edit = findViewById(R.id.emailInput);
@@ -52,6 +79,14 @@ public class SignUpLogIn extends AppCompatActivity
                 if(noError()) startActivity(new Intent(SignUpLogIn.this, HomePage.class));
                 }
             });
+
+        }
+
+        private boolean isNetworkAvailable() {
+            ConnectivityManager connectivityManager
+                    = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
+            NetworkInfo activeNetworkInfo = connectivityManager.getActiveNetworkInfo();
+            return activeNetworkInfo != null;
         }
 
         private boolean noError()
