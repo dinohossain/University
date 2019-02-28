@@ -6,6 +6,7 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
+import android.os.AsyncTask;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -31,6 +32,8 @@ public class SignUpLogIn extends AppCompatActivity
 
     TextView noRecordMsg;
     ProgressBar loadingCredentials;
+
+    int status;
 
     @Override
     protected void onCreate(Bundle savedInstanceState)
@@ -110,11 +113,8 @@ public class SignUpLogIn extends AppCompatActivity
 
         private boolean doesRecordExistInDB(String email, String password)
             {
-            internet_thread backendData = new internet_thread(email,password);
-            Thread load = new Thread(backendData);
-            load.start();
-            while (load.isAlive()) {loadingCredentials.setVisibility(View.VISIBLE);}
-            int status = backendData.getStatus();
+            AsyncCaller runner = new AsyncCaller();
+            runner.execute(email,password);
             switch (status)
                 {
                 case 0: noRecordMsg.setVisibility(View.VISIBLE);
@@ -146,44 +146,35 @@ public class SignUpLogIn extends AppCompatActivity
                 }
             }
 
-        private class internet_thread implements Runnable
-            {
-                String email;
-                String password;
-                int status;
+        private class AsyncCaller extends AsyncTask<String, Void, Void>
+        {
 
+            int status1;
 
-                public internet_thread(String email, String password)
-                    {
-                    this.email = email;
-                    this.password = password;
-                    }
+            @Override
+            protected void onPreExecute() {
+                super.onPreExecute();
+                loadingCredentials.setVisibility(View.VISIBLE);
+                //this method will be running on UI thread
 
-                @Override
-                public void run()
-                    {
-                    int status = new DatabaseConnectorLogIn(email,password).loadDataUserDetail();
-                    this.status=status;
-                        runOnUiThread(new Runnable() {
-                            @Override
-                            public void run() {
-                                try
-                                {
-                                loadingCredentials.setVisibility(View.VISIBLE);
-
-                                }
-                                catch (Exception e)
-                                {
-                                    e.printStackTrace();
-                                }
-                            }
-                        });
-                    }
-
-                public int getStatus()
-                    {
-                    return status;
-                    }
             }
+            @Override
+            protected Void doInBackground(String... params)
+                {
+                status1 = new DatabaseConnectorLogIn(params[0],params[1]).loadDataUserDetail();
+                status = status1;
+                return null;
+                }
+
+
+            @Override
+            protected void onPostExecute(Void param) {
+                loadingCredentials.setVisibility(View.INVISIBLE);
+
+                //this method will be running on UI thread
+
+                }
+
+        }
 
     }
