@@ -11,6 +11,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import com.dating.app.idateu.Homepage.HomePage;
@@ -29,6 +30,7 @@ public class SignUpLogIn extends AppCompatActivity
     EditText pass_edit;
 
     TextView noRecordMsg;
+    ProgressBar loadingCredentials;
 
     @Override
     protected void onCreate(Bundle savedInstanceState)
@@ -61,6 +63,8 @@ public class SignUpLogIn extends AppCompatActivity
         noRecordMsg.setVisibility(View.INVISIBLE);
         email_edit = findViewById(R.id.emailInput);
         pass_edit = findViewById(R.id.passwordInput);
+        loadingCredentials = findViewById(R.id.loadingCredentials);
+        loadingCredentials.setVisibility(View.INVISIBLE);
 
         register_btn = (Button)findViewById(R.id.register_button);
         register_btn.setOnClickListener(new View.OnClickListener() {
@@ -77,6 +81,7 @@ public class SignUpLogIn extends AppCompatActivity
                 public void onClick(View view)
                 {
                 if(noError()) startActivity(new Intent(SignUpLogIn.this, HomePage.class));
+                loadingCredentials.setVisibility(View.INVISIBLE);
                 }
             });
 
@@ -91,6 +96,7 @@ public class SignUpLogIn extends AppCompatActivity
 
         private boolean noError()
             {
+            loadingCredentials.setVisibility(View.VISIBLE);
             boolean status = false;
             String email = email_edit.getText().toString();
             String password = pass_edit.getText().toString();
@@ -107,12 +113,8 @@ public class SignUpLogIn extends AppCompatActivity
             internet_thread backendData = new internet_thread(email,password);
             Thread load = new Thread(backendData);
             load.start();
-                try {
-                    load.join();
-                } catch (InterruptedException e) {
-                    e.printStackTrace();
-                }
-                int status = backendData.getStatus();
+            while (load.isAlive()) {loadingCredentials.setVisibility(View.VISIBLE);}
+            int status = backendData.getStatus();
             switch (status)
                 {
                 case 0: noRecordMsg.setVisibility(View.VISIBLE);
@@ -162,6 +164,20 @@ public class SignUpLogIn extends AppCompatActivity
                     {
                     int status = new DatabaseConnectorLogIn(email,password).loadDataUserDetail();
                     this.status=status;
+                        runOnUiThread(new Runnable() {
+                            @Override
+                            public void run() {
+                                try
+                                {
+                                loadingCredentials.setVisibility(View.VISIBLE);
+
+                                }
+                                catch (Exception e)
+                                {
+                                    e.printStackTrace();
+                                }
+                            }
+                        });
                     }
 
                 public int getStatus()
