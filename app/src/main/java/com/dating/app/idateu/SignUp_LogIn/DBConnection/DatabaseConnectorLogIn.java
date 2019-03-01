@@ -12,21 +12,49 @@ public class DatabaseConnectorLogIn
             String email;
             String password;
 
-            public DatabaseConnectorLogIn(String email, String passsword)
+            public DatabaseConnectorLogIn(String email, String password)
                 {
                 this.email = email;
-                this.password = passsword;
+                this.password = password;
                 }
 
             //0 --> email not in DB, 1 --> wrong password, 2--> login success
             public int loadDataUserDetail()
                 {
-                if (emailExist()
+                if(!canAppReceiveData()) return -1;
+                else if (emailExist()
                     &&correctPassword()) return 2;
                 else if (emailExist()
                         &&!correctPassword()) return 1;
                 return 0;
                 }
+
+        private boolean canAppReceiveData()
+            {
+                try {
+                    Connection conn = null;
+                    PreparedStatement statement = null;
+                    ResultSet rs = null;
+                    Class.forName("com.mysql.jdbc.Driver");
+                    DriverManager.setLoginTimeout(2);
+                    String url = "jdbc:mysql://172.31.82.74:3306/idateu";
+                    conn = DriverManager.getConnection(url, "root", "Admin123");
+                    Statement select = conn.createStatement();
+                    statement = null;
+                    ResultSet resultSet = conn.getMetaData().getCatalogs();
+                    while (resultSet.next()) {
+                        String databaseName = resultSet.getString(1);
+                        return true;
+                    }
+
+                }
+                catch(Exception e)
+                {
+
+                }
+                return false;
+            }
+
 
         private boolean correctPassword()
             {

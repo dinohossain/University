@@ -33,8 +33,6 @@ public class SignUpLogIn extends AppCompatActivity
     TextView noRecordMsg;
     ProgressBar loadingCredentials;
 
-    int status;
-
     @Override
     protected void onCreate(Bundle savedInstanceState)
         {
@@ -115,8 +113,11 @@ public class SignUpLogIn extends AppCompatActivity
             {
             AsyncCaller runner = new AsyncCaller();
             runner.execute(email,password);
-            switch (status)
+            switch (runner.statusCode())
                 {
+                case -1:noRecordMsg.setVisibility(View.VISIBLE);
+                        noRecordMsg.setText("Unable to connect to the server");
+                        return false;
                 case 0: noRecordMsg.setVisibility(View.VISIBLE);
                         return false;
                 case 1: pass_edit.setError("Wrong Password");
@@ -128,22 +129,24 @@ public class SignUpLogIn extends AppCompatActivity
 
         private boolean isEmailValid(String s)
             {
-                Pattern VALID_EMAIL_ADDRESS_REGEX =
-                        Pattern.compile("^[A-Z0-9._%+-]+@[A-Z0-9.-]+\\.[A-Z]{2,6}$", Pattern.CASE_INSENSITIVE);
-                Matcher matcher = VALID_EMAIL_ADDRESS_REGEX .matcher(s);
-                boolean stat = matcher.find() == true ? true : false;
-                if (!stat) email_edit.setError("Invalid Email");
-                return stat;
+//                Pattern VALID_EMAIL_ADDRESS_REGEX =
+//                        Pattern.compile("^[A-Z0-9._%+-]+@[A-Z0-9.-]+\\.[A-Z]{2,6}$", Pattern.CASE_INSENSITIVE);
+//                Matcher matcher = VALID_EMAIL_ADDRESS_REGEX .matcher(s);
+//                boolean stat = matcher.find() == true ? true : false;
+//                if (!stat) email_edit.setError("Invalid Email");
+//                return stat;
+                return true;
             }
 
         private boolean didUserTypeInPassword(String password)
             {
-            if (password.length() > 0) return true;
-            else
-                {
-                pass_edit.setError("Enter your password");
-                return false;
-                }
+//            if (password.length() > 0) return true;
+//            else
+//                {
+//                pass_edit.setError("Enter your password");
+//                return false;
+//                }
+                return true;
             }
 
         private class AsyncCaller extends AsyncTask<String, Void, Void>
@@ -162,18 +165,19 @@ public class SignUpLogIn extends AppCompatActivity
             protected Void doInBackground(String... params)
                 {
                 status1 = new DatabaseConnectorLogIn(params[0],params[1]).loadDataUserDetail();
-                status = status1;
                 return null;
                 }
 
-
             @Override
-            protected void onPostExecute(Void param) {
-                loadingCredentials.setVisibility(View.INVISIBLE);
-
-                //this method will be running on UI thread
-
+            protected void onPostExecute(Void result)
+                {
+                //do stuff
+                statusCode();
                 }
+
+            private int statusCode() {
+                return status1;
+            }
 
         }
 
