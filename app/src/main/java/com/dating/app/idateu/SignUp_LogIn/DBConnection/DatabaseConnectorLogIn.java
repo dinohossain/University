@@ -19,6 +19,7 @@ public class DatabaseConnectorLogIn
                 }
 
             //0 --> email not in DB, 1 --> wrong password, 2--> login success
+            //  -1 --> unable to connect to the server
             public int loadDataUserDetail()
                 {
                 if(!canAppReceiveData()) return -1;
@@ -36,7 +37,7 @@ public class DatabaseConnectorLogIn
                     PreparedStatement statement = null;
                     ResultSet rs = null;
                     Class.forName("com.mysql.jdbc.Driver");
-                    DriverManager.setLoginTimeout(2);
+                    DriverManager.setLoginTimeout(5);
                     String url = "jdbc:mysql://172.31.82.74:3306/idateu";
                     conn = DriverManager.getConnection(url, "root", "Admin123");
                     Statement select = conn.createStatement();
