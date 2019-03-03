@@ -41,8 +41,8 @@ public class HomePage extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home_page);
         if (!isNetworkAvailable())
-            {
-            }
+        {
+        }
         current_match=findViewById(R.id.match_pic);
         userName = findViewById(R.id.username_txt);
 
@@ -53,25 +53,25 @@ public class HomePage extends AppCompatActivity {
         like_button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view)
-                {
+            {
                 matchIndex++;
                 LoadImageforIndex();
-                }
-            });
+            }
+        });
 
         current_match.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view)
-                {
+            {
                 if (SystemClock.elapsedRealtime() - mLastClickTime < 1000) //stops double clicking (double pop_up)
-                    {
+                {
                     return;
-                    }
-                    mLastClickTime = SystemClock.elapsedRealtime();
-                    startPop_up();
                 }
-            });
-        }
+                mLastClickTime = SystemClock.elapsedRealtime();
+                startPop_up();
+            }
+        });
+    }
 
     private boolean isNetworkAvailable() {
         ConnectivityManager connectivityManager
@@ -81,18 +81,20 @@ public class HomePage extends AppCompatActivity {
     }
 
     private void startPop_up()
-        {
-        Intent start_popup = new Intent(HomePage.this, PopUp_launcher.class);
-        Bundle be = new Bundle();
-        be.putSerializable("Object",data);
-        start_popup.putExtras(be);
-        startActivity(start_popup);
-        overridePendingTransition(R.anim.fade_in,R.anim.fade_out);
-        }
+    {
+        if (data !=null)
+            {
+            Intent start_popup = new Intent(HomePage.this, PopUp_launcher.class);
+            Bundle be = new Bundle();
+            be.putSerializable("Object", data);
+            start_popup.putExtras(be);
+            startActivity(start_popup);
+            overridePendingTransition(R.anim.fade_in, R.anim.fade_out);
+            }
+    }
 
     public void LoadImageforIndex() {
         new Thread(new internet_thread()).start();
-
     }
 
     private class internet_thread implements Runnable {
@@ -106,43 +108,43 @@ public class HomePage extends AppCompatActivity {
             data = connect_image.loadDataUserDetail(matchIndex);
             bmp = image(data.getProfilePic());
             if (bmp==null)
-                {
+            {
                 matchIndex = 1;
                 LoadImageforIndex();
-                }
+            }
 
             runOnUiThread(new Runnable() {
                 @Override
                 public void run() {
                     try
-                        {
+                    {
                         mName = data.getName();
                         current_match.setImageBitmap(bmp);
                         userName.setText(mName);
-                        }
+                    }
                     catch (Exception e)
-                        {
+                    {
                         e.printStackTrace();
-                        }
+                    }
                 }
             });
         }
 
-    public Bitmap image(String picData)
+        public Bitmap image(String picData)
         {
-        try {
-            InputStream in = null;
-            String stringToByte = picData;
-            byte[] imageArray = Base64.decode(stringToByte, Base64.DEFAULT);
-            Blob blob = new SerialBlob(imageArray);
-            in = blob.getBinaryStream();
-            BufferedInputStream bufferedInputStream = new BufferedInputStream(in);
-            Bitmap bmp = BitmapFactory.decodeStream(bufferedInputStream);
-            return bmp;
+            try {
+                InputStream in = null;
+                String stringToByte = picData;
+                byte[] imageArray = Base64.decode(stringToByte, Base64.DEFAULT);
+                Blob blob = new SerialBlob(imageArray);
+                in = blob.getBinaryStream();
+                BufferedInputStream bufferedInputStream = new BufferedInputStream(in);
+                Bitmap bmp = BitmapFactory.decodeStream(bufferedInputStream);
+                return bmp;
             }
-        catch (Exception e)
+            catch (Exception e)
             {
-            return null;
+                return null;
             }
         }
 
@@ -150,19 +152,12 @@ public class HomePage extends AppCompatActivity {
 
     @Override
     public void onBackPressed()
-        {
-            Intent a = new Intent(Intent.ACTION_MAIN);
-            a.addCategory(Intent.CATEGORY_HOME);
-            a.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-            startActivity(a);
-        }
-
-
+    {
+        Intent a = new Intent(Intent.ACTION_MAIN);
+        a.addCategory(Intent.CATEGORY_HOME);
+        a.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+        startActivity(a);
     }
 
 
-
-
-
-
-
+}

@@ -20,7 +20,7 @@ public class DatabaseConnectorLogIn
 
             //0 --> email not in DB, 1 --> wrong password, 2--> login success
             //  -1 --> unable to connect to the server
-            public int loadDataUserDetail()
+            public int loginUser()
                 {
                 if(!canAppReceiveData()) return -1;
                 else if (emailExist()

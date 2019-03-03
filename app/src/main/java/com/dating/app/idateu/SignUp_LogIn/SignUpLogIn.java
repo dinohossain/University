@@ -159,7 +159,7 @@ public class SignUpLogIn extends AppCompatActivity
             @Override
             protected Integer doInBackground(String... params)
                 {
-                Integer status1 = new DatabaseConnectorLogIn(params[0], params[1]).loadDataUserDetail();
+                Integer status1 = new DatabaseConnectorLogIn(params[0], params[1]).loginUser();
                 return status1;
                 }
 
