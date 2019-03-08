@@ -16,6 +16,7 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.dating.app.idateu.Chat.ChatActivity;
 import com.dating.app.idateu.Homepage.DBConnector.SerialBlob;
 import com.dating.app.idateu.Homepage.DBConnector.StoreResult;
 import com.dating.app.idateu.Homepage.DBConnector.DatabaseConnectorHomepage;
@@ -159,5 +160,12 @@ public class HomePage extends AppCompatActivity {
         startActivity(a);
     }
 
+    public void message_btn(View view) {
+        Intent intent = new Intent(view.getContext(), ChatActivity.class);
+        Bundle b = new Bundle();
+        b.putString("current_match", userName.getText().ToString().ToString());
+        intent.putExtras(b);
+        view.getContext().startActivisty(intent);
+    }
 
 }
