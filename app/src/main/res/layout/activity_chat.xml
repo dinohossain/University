@@ -40,11 +40,6 @@
             android:id="@+id/send"/>
 
 
-            />
-
-
-
-
     </LinearLayout>
 
 
